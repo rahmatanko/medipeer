@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+backend/djangoenv/
+
+# Environment variables
+backend/.env
+
+# Django local DB
+db.sqlite3
+backend/db.sqlite3
+
+# Uploaded files
+media/
+
+# VS Code
+.vscode/
