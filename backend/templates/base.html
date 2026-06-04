@@ -2,12 +2,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.google.com/share?selection.family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900|Noto+Serif+TC:wght@200..900" rel="stylesheet">
+    
     <meta charset="UTF-8">
     <title>Medipeer</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"><link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/marketplace.css' %}">
+    <link rel="stylesheet" href="{% static 'css/groups.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gigs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 
 <body>
@@ -18,10 +28,10 @@
 
     <div class="nav-links">
         <a href="/" class="active">Dashboard</a>
-        <a href="/marketplace/">Notes</a>
-        <a href="/groups/">Groups</a>
-        <a href="/gigs/">Gigs</a>
-        <a href="/search/">AI Search</a>
+        <a href="/marketplace/">Note Marketplace</a>
+        <a href="/groups/">Study Groups</a>
+        <a href="/gigs/">Academic Gigs</a>
+        <a href="/gigs/">Contact Us</a>
     </div>
 
     <div class="nav-actions">

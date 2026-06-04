@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e9eef7, #f1eefb);
+    color: #252525;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    padding: 34px;
+}
+
+.content {
+    margin-top: 34px;
+}

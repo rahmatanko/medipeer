@@ -1,6 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Dashboard</h2>
-<p>Welcome to Medipeer.</p>
+
+<div class="dashboard-header">
+    <div>
+        <h1>Medipol University Academic Hub</h1>
+        <p>Organize notes, study groups, academic gigs, and AI-powered search in one place.</p>
+    </div>
+
+    <a href="/marketplace/" class="primary-action-btn">
+        + Add Note / Request Help
+    </a>
+</div>
+<div class="focus-bubble">
+    <div class="focus-header">
+        <span class="focus-label">Today’s Academic Focus</span>
+    </div>
+
+    <div class="course-bubbles">
+        <a href="/marketplace/" class="course-bubble bubble-blue">
+            <span>COE 321</span>
+            <strong>Databases</strong>
+        </a>
+
+        <a href="/marketplace/" class="course-bubble bubble-purple">
+            <span>COE 223</span>
+            <strong>Algorithms</strong>
+        </a>
+
+        <a href="/marketplace/" class="course-bubble bubble-orange">
+            <span>COE 306</span>
+            <strong>Microprocessors</strong>
+        </a>
+
+        <a href="/marketplace/" class="course-bubble bubble-green">
+            <span>COE 177</span>
+            <strong>Intro To Programming</strong>
+        </a>
+
+    
+    </div>
+</div>
+
 {% endblock %}

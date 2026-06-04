@@ -1,0 +1,149 @@
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 26px 22px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.dashboard-header p {
+    color: #555;
+    margin: 0;
+}
+
+.primary-action-btn {
+    background: #291E50;
+    color: white;
+    text-decoration: none;
+    padding: 15px 26px;
+    border-radius: 28px;
+    font-weight: 700;
+    box-shadow: 0 12px 30px rgba(109, 74, 255, 0.25);
+}
+
+.primary-action-btn:hover {
+    background: #291E50;
+    color: white;
+}
+
+.focus-bubble {
+    margin: 0 22px 30px;
+    padding: 34px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.42);
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 25px 70px rgba(65, 52, 120, 0.10);
+
+
+}
+
+.focus-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #131B21;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.focus-bubble h2 {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.focus-bubble p {
+    max-width: 650px;
+    color: #5f6472;
+    margin: 0;
+}
+
+.focus-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.focus-btn {
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: 26px;
+    font-weight: 700;
+}
+
+.focus-btn.primary {
+    background: #2b185f;
+    color: white;
+}
+
+.focus-btn.secondary {
+    background: rgba(255,255,255,0.55);
+    color: #2b185f;
+}
+
+.focus-bubble {
+    margin: 0 22px 30px;
+    padding: 34px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.42);
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 25px 70px rgba(65, 52, 120, 0.10);
+}
+
+.course-bubbles {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.course-bubble {
+    text-decoration: none;
+    color: #1f2937;
+    padding: 24px;
+    border-radius: 30px;
+    min-height: 135px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.2s ease;
+}
+
+.course-bubble:hover {
+    transform: translateY(-4px);
+    color: #1f2937;
+}
+
+.course-bubble span {
+    font-size: 14px;
+    font-weight: 800;
+    opacity: 0.75;
+}
+
+.course-bubble strong {
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.bubble-blue {
+    background: #dce7fa;
+}
+
+.bubble-purple {
+    background: #ece6ff;
+}
+
+.bubble-orange {
+    background: #ffe3d7;
+}
+
+.bubble-green {
+    background: #e1f7df;
+}
