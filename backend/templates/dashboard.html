@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
 <div class="dashboard-header">
@@ -7,39 +6,184 @@
         <h1>Medipol University Academic Hub</h1>
         <p>Organize notes, study groups, academic gigs, and AI-powered search in one place.</p>
     </div>
-
-    <a href="/marketplace/" class="primary-action-btn">
-        + Add Note / Request Help
-    </a>
+    <a href="/marketplace/" class="primary-action-btn">+ Add Note / Request Help</a>
 </div>
-<div class="focus-bubble">
-    <div class="focus-header">
-        <span class="focus-label">Today’s Academic Focus</span>
+
+<div class="dashboard-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+    <!-- Focus bubble (full width of left col) -->
+    <div class="focus-bubble">
+        <span class="focus-label">Today's Academic Focus</span>
+        <div class="course-bubbles">
+            <a href="/marketplace/" class="course-bubble bubble-blue">
+                <span>COE 321</span><strong>Databases</strong>
+            </a>
+            <a href="/marketplace/" class="course-bubble bubble-purple">
+                <span>COE 223</span><strong>Algorithms</strong>
+            </a>
+            <a href="/marketplace/" class="course-bubble bubble-orange">
+                <span>COE 306</span><strong>Microprocessors</strong>
+            </a>
+            <a href="/marketplace/" class="course-bubble bubble-green">
+                <span>COE 177</span><strong>Intro To Programming</strong>
+            </a>
+        </div>
     </div>
 
-    <div class="course-bubbles">
-        <a href="/marketplace/" class="course-bubble bubble-blue">
-            <span>COE 321</span>
-            <strong>Databases</strong>
-        </a>
+    <!-- Bottom row: leaderboard + my groups side by side -->
+    <div class="left-bottom-row">
 
-        <a href="/marketplace/" class="course-bubble bubble-purple">
-            <span>COE 223</span>
-            <strong>Algorithms</strong>
-        </a>
+        <!-- Leaderboard -->
+        <div class="focus-bubble leaderboard-bubble">
+            <div class="lb-header">
+                <h2>Top Peer Standing</h2>
+                <a href="/leaderboard/" class="see-all-btn">See All</a>
+            </div>
+            <p class="summary-sub">Top students by reputation points</p>
+            <div class="lb-list">
+                {% for entry in leaderboard %}
+                <div class="lb-row">
+                    <div class="lb-rank-badge rank-{{ forloop.counter }}">{{ forloop.counter }}</div>
+                    <div class="lb-avatar">{{ entry.first_name|first }}{{ entry.last_name|first }}</div>
+                    <div class="lb-info">
+                        <strong>{{ entry.full_name }}</strong>
+                        <span>{{ entry.badge_title }}</span>
+                    </div>
+                    <div class="lb-rank-pill rank-pill-{{ forloop.counter }}">{{ forloop.counter }}</div>
+                    <div class="lb-pts">{{ entry.reputation_score }} pts</div>
+                </div>
+                {% empty %}
+                <div class="lb-row">
+                    <div class="lb-avatar"><i class="bi bi-balloon-heart"></i></div>
+                    <div class="lb-info"><strong>Jumana</strong><span>Calc Ace </span></div>
+                    <div class="lb-pts">1150 pts</div>
+                </div>
+                <div class="lb-row">
+                    <div class="lb-avatar" style="background:#ede9fe;color:#7c3aed;"><i class="bi bi-gem"></i></div>
+                    <div class="lb-info"><strong>Sereen</strong><span>Gig Expert </span></div>
+                    <div class="lb-pts">1140 pts</div>
+                </div>
+                <div class="lb-row">
+                    <div class="lb-avatar" style="background:#fef3c7;color:#b45309;"><i class="bi bi-dribbble"></i></div>
+                    <div class="lb-info"><strong>Omar</strong><span>Group Leader </span></div>
+                    <div class="lb-pts">1130 pts</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-        <a href="/marketplace/" class="course-bubble bubble-orange">
-            <span>COE 306</span>
-            <strong>Microprocessors</strong>
-        </a>
+        <!-- My Groups -->
+        <div class="focus-bubble my-groups-bubble">
+            <div class="lb-header">
+                <h2>My Groups</h2>
+                <a href="/groups/" class="see-all-btn">See All</a>
+            </div>
+            <div class="groups-col-labels">
+                <span>Name</span>
+                <span>Session</span>
+            </div>
+            <div class="groups-list">
+                {% for group in my_groups %}
+                <div class="group-row">
+                    <div class="group-avatar">{{ group.group_name|first }}</div>
+                    <div class="lb-info">
+                        <strong>{{ group.group_name }}</strong>
+                        <span>Session - {{ group.session_time|default:"TBD" }}</span>
+                    </div>
+                    <span class="group-arrow">›</span>
+                </div>
+                {% empty %}
+                <div class="group-row">
+                    <div class="group-avatar" style="background:#fef3c7;"><i class="bi bi-book"></i></div>
+                    <div class="lb-info"><strong>Calc Study Group</strong><span>Session - 12:00</span></div>
+                    <span class="group-arrow">›</span>
+                </div>
+                <div class="group-row">
+                    <div class="group-avatar" style="background:#ede9fe;"><i class="bi bi-backpack4-fill"></i></div>
+                    <div class="lb-info"><strong>OS Final Prep  </strong><span>Session - 12:00</span></div>
+                    <span class="group-arrow">›</span>
+                </div>
+                <div class="group-row">
+                    <div class="group-avatar" style="background:#dce7fa;"><i class="bi bi-calculator"></i></div>
+                    <div class="lb-info"><strong>Algo Group 🏆</strong><span>Session - 12:00</span></div>
+                    <span class="group-arrow">›</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-        <a href="/marketplace/" class="course-bubble bubble-green">
-            <span>COE 177</span>
-            <strong>Intro To Programming</strong>
-        </a>
-
-    
     </div>
+
+</div>
+
+    <!-- RIGHT: Summary bubble -->
+    <div class="summary-bubble">
+        <h2>My Academic Summary</h2>
+        <p class="summary-sub">Global reputation score</p>
+
+        <div class="reputation-score">
+            <span class="rep-dot" style="background:#A082D7"></span>
+            <span class="rep-label">Global reputation</span>
+            <strong class="rep-value">{{ student.reputation_score|default:"85" }}%</strong>
+        </div>
+        <p class="summary-sub" style="margin: 4px 0 20px 22px;">Points stack</p>
+
+        <div class="rep-breakdown">
+            <div class="rep-item">
+                <span class="rep-dot" style="background:#8DA8DB"></span>
+                <span>Notes Rated <small>(50%)</small></span>
+            </div>
+            <div class="rep-item">
+                <span class="rep-dot" style="background:#D77F5C"></span>
+                <span>Groups Led <small>(25%)</small></span>
+            </div>
+            <div class="rep-item">
+                <span class="rep-dot" style="background:#E5BCAB"></span>
+                <span>Gigs Completed <small>(15%)</small></span>
+            </div>
+            <div class="rep-item">
+                <span class="rep-dot" style="background:#B0C9B8"></span>
+                <span>Mentoring <small>(10%)</small></span>
+            </div>
+        </div>
+
+        <div class="summary-stats">
+            {% for stat in course_stats %}
+            <div class="summary-stat">
+                <span>{{ stat.course_code }}</span>
+                <div class="stat-bar-wrap">
+                    <div class="stat-bar" style="width: {{ stat.percent }}%; background: {{ stat.color }};"></div>
+                </div>
+                <strong>{{ stat.percent }}%</strong>
+            </div>
+            {% empty %}
+            <div class="summary-stat">
+                <span>Calc</span>
+                <div class="stat-bar-wrap"><div class="stat-bar" style="width:100%; background:#8DA8DB;"></div></div>
+                <strong>100%</strong>
+            </div>
+            <div class="summary-stat">
+                <span>COE</span>
+                <div class="stat-bar-wrap"><div class="stat-bar" style="width:80%; background:#D77F5C;"></div></div>
+                <strong>80%</strong>
+            </div>
+            <div class="summary-stat">
+                <span>OS</span>
+                <div class="stat-bar-wrap"><div class="stat-bar" style="width:15%; background:#E5BCAB;"></div></div>
+                <strong>15%</strong>
+            </div>
+            <div class="summary-stat">
+                <span>DB</span>
+                <div class="stat-bar-wrap"><div class="stat-bar" style="width:70%; background:#B0C9B8;"></div></div>
+                <strong>70%</strong>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
