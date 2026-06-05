@@ -35,3 +35,6 @@ def contact(request):
 
 def admin_analytics(request):
     return render(request, "admin_analytics.html")
+
+def profile(request):
+    return render(request, "profile.html")

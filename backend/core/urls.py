@@ -16,6 +16,7 @@ urlpatterns = [
     path("groups/create/", views.group_create, name="group_create"),
 
     path("search/", views.search_results, name="search_results"),
+    path("profile/", views.profile, name="profile"),
     path("contact/", views.contact, name="contact"),
     path("admin-analytics/", views.admin_analytics, name="admin_analytics"),
 ]

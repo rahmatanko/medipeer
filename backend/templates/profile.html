@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="profile-page">
+    <div class="profile-grid">
+
+   
+        <div class="profile-left-col">
+            
+            <!-- User Identity Card -->
+            <div class="prof-card identity-card">
+                <div class="prof-avatar">RR</div>
+                <h2>Rayan Radwan</h2>
+                <p class="prof-major">Computer Engineering · Year 3</p>
+                <p class="prof-email"><i class="bi bi-envelope"></i> rayan@std.medipol.edu.tr</p>
+                <a href="#" class="edit-prof-btn"><i class="bi bi-pencil"></i> Edit profile</a>
+            </div>
+
+            <!--  Reputation Score Card -->
+            <div class="prof-card">
+                <div class="card-header-sm">
+                    <i class="bi bi-award"></i> Reputation score
+                </div>
+                <div class="rep-score-hero">
+                    <span class="rep-big-num">85</span>
+                    <div class="rep-sub">
+                        <span>out of 100</span>
+                        <span class="rep-pill">+3 this week</span>
+                    </div>
+                </div>
+
+                <div class="rep-breakdown-list">
+                    <!-- Progress Bar 1 -->
+                    <div class="rep-prog-item">
+                        <div class="prog-labels">
+                            <span>Notes rated</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="prog-track"><div class="prog-fill" style="width: 50%; background: #A082D7;"></div></div>
+                    </div>
+                    <!-- Progress Bar 2 -->
+                    <div class="rep-prog-item">
+                        <div class="prog-labels">
+                            <span>Groups led</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="prog-track"><div class="prog-fill" style="width: 25%; background: #8DA8DB;"></div></div>
+                    </div>
+                    <!-- Progress Bar 3 -->
+                    <div class="rep-prog-item">
+                        <div class="prog-labels">
+                            <span>Gigs completed</span>
+                            <span>15%</span>
+                        </div>
+                        <div class="prog-track"><div class="prog-fill" style="width: 15%; background: #dca58d;"></div></div>
+                    </div>
+                    <!-- Progress Bar 4 -->
+                    <div class="rep-prog-item">
+                        <div class="prog-labels">
+                            <span>Mentoring</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="prog-track"><div class="prog-fill" style="width: 10%; background: #9bd3ab;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enrolled Courses Card -->
+            <div class="prof-card">
+                <div class="card-header-sm">
+                    <i class="bi bi-book"></i> Enrolled courses
+                </div>
+                <div class="courses-list">
+                    <div class="course-item">
+                        <div class="course-dot" style="background: #A082D7;"></div>
+                        <div class="course-info">
+                            <strong>Databases</strong>
+                            <span>COE 321</span>
+                        </div>
+                        <div class="course-grade">A</div>
+                    </div>
+                    <div class="course-item">
+                        <div class="course-dot" style="background: #9bd3ab;"></div>
+                        <div class="course-info">
+                            <strong>Algorithms</strong>
+                            <span>COE 223</span>
+                        </div>
+                        <div class="course-grade">B+</div>
+                    </div>
+                    <div class="course-item">
+                        <div class="course-dot" style="background: #8DA8DB;"></div>
+                        <div class="course-info">
+                            <strong>Microprocessors</strong>
+                            <span>COE 306</span>
+                        </div>
+                        <div class="course-grade">A-</div>
+                    </div>
+                    <div class="course-item">
+                        <div class="course-dot" style="background: #D77F5C;"></div>
+                        <div class="course-info">
+                            <strong>Intro to Programming</strong>
+                            <span>COE 177</span>
+                        </div>
+                        <div class="course-grade">A</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="profile-right-col">
+            
+            <div class="prof-stats-row">
+                <div class="prof-stat-box box-purple">
+                    <span class="stat-num">12</span>
+                    <span class="stat-lbl">Notes uploaded</span>
+                </div>
+                <div class="prof-stat-box box-yellow">
+                    <span class="stat-num">4</span>
+                    <span class="stat-lbl">Groups joined</span>
+                </div>
+                <div class="prof-stat-box box-green">
+                    <span class="stat-num">7</span>
+                    <span class="stat-lbl">Gigs completed</span>
+                </div>
+            </div>
+
+            <div class="prof-card">
+                <div class="card-header-sm">
+                    <i class="bi bi-shield-check"></i> Badges earned
+                </div>
+                <div class="badges-grid">
+                    <div class="badge-card">
+                        <div class="badge-icon icon-orange"><i class="bi bi-trophy-fill"></i></div>
+                        <strong>Calc ace</strong>
+                        <span>Top rated note</span>
+                    </div>
+                    <div class="badge-card">
+                        <div class="badge-icon icon-blue"><i class="bi bi-shield-fill"></i></div>
+                        <strong>Group leader</strong>
+                        <span>Led 2 groups</span>
+                    </div>
+                    <div class="badge-card">
+                        <div class="badge-icon icon-yellow"><i class="bi bi-star-fill"></i></div>
+                        <strong>Gig expert</strong>
+                        <span>5 gigs done</span>
+                    </div>
+                    <div class="badge-card badge-locked">
+                        <div class="badge-icon icon-grey"><i class="bi bi-mortarboard-fill"></i></div>
+                        <strong>Mentor</strong>
+                        <span>Locked</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prof-card">
+                <div class="card-header-sm">
+                    <i class="bi bi-clock-history"></i> Recent activity
+                </div>
+                
+                <div class="activity-list">
+                    
+                    <div class="activity-item">
+                        <div class="act-icon icon-purple"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="act-content">
+                            <div class="act-header">
+                                <strong>Uploaded "Calc 2 — Series & Sequences"</strong>
+                                <span class="act-time">2h ago</span>
+                            </div>
+                            <span class="act-meta">Marketplace · COE 202</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="act-icon icon-green"><i class="bi bi-people"></i></div>
+                        <div class="act-content">
+                            <div class="act-header">
+                                <strong>Joined "OS Final Grind"</strong>
+                                <span class="act-time">Yesterday</span>
+                            </div>
+                            <span class="act-meta">Study group · COE 315</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="act-icon icon-yellow"><i class="bi bi-briefcase"></i></div>
+                        <div class="act-content">
+                            <div class="act-header">
+                                <strong>Completed gig — "Algo Review Session"</strong>
+                                <span class="act-time">2 days ago</span>
+                            </div>
+                            <span class="act-meta">Rated 4.8 by requester</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="act-icon icon-blue"><i class="bi bi-star"></i></div>
+                        <div class="act-content">
+                            <div class="act-header">
+                                <strong>Rated a note — "DB Systems ERD Guide"</strong>
+                                <span class="act-time">3 days ago</span>
+                            </div>
+                            <span class="act-meta">Gave 5 stars · reputation updated</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
