@@ -1,0 +1,398 @@
+
+
+.gigs-page {
+    padding: 24px;
+    background: #f4f5f8; 
+    min-height: 100vh;
+}
+
+/* 1. Hero Section */
+.gigs-hero {
+    background: #231942; 
+    border-radius: 24px;
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.hero-left h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 8px 0;
+}
+
+.hero-left p {
+    color: #a8a3c2;
+    font-size: 15px;
+    margin: 0;
+}
+
+.hero-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hero-stat-box {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 12px 24px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-stat-box .stat-num {
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.hero-stat-box .stat-label {
+    color: #a8a3c2;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.post-gig-btn {
+    background: rgb(255, 255, 255);
+    color: #231942;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+
+    transition: color 0.2s;
+
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+    
+}
+
+.post-gig-btn:hover {
+    color: #6522da;
+}
+
+/* 2. Filters Section */
+.gigs-filters-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.filter-input, .filter-select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #374151;
+    outline: none;
+    font-family: inherit;
+    background: white;
+}
+
+.filter-input::placeholder {
+    color: #9ca3af;
+}
+
+/* 3. Main Layout Grid */
+.gigs-layout-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; 
+    gap: 28px;
+}
+
+.gigs-main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.gigs-sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #9ca3af;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+/* Gig Cards */
+.gig-card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.gig-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+}
+
+.accent-red::before { background: #ff9c9c; }
+.accent-purple::before { background: #c9a9ff; }
+
+.gig-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.gig-card-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+    max-width: 85%;
+    line-height: 1.3;
+}
+
+.gig-course {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 16px;
+}
+
+.gig-desc {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.gig-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 24px;
+}
+
+.gig-meta i {
+    margin-right: 4px;
+}
+
+.gig-meta .bi-geo-alt { color: #ec4899; } 
+.gig-meta .rating-text { color: #d97706; } 
+.gig-meta .bi-star-fill { color: #fbbf24; }
+
+.gig-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.poster-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.bg-blue { background: #dbeafe; color: #1d4ed8; }
+.bg-purple { background: #f3e8ff; color: #c9a9ff; }
+.bg-green { background: #dcfce7; color: #15803d; }
+
+.apply-btn {
+    background: white;
+    border: 1px solid #d1d5db;
+    color: #111;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.apply-btn:hover {
+    border-color: #111;
+    background: #f9fafb;
+}
+
+/* Tags */
+.tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+
+.tag-urgent { background: #fee2e2; color: #b91c1c; }
+.tag-open { background: #f3e8ff; color: #6522da; }
+.tag-active { background: #dcfce7; color: #15803d; }
+.tag-done { background: #f3f4f6; color: #4b5563; }
+
+/* Right Sidebar Cards */
+.sidebar-card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid #B0C9B8;
+
+}
+
+.sidebar-card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+
+}
+
+/* My Gigs specific */
+.my-gig-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f3f4f6;}
+
+.my-gig-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.dot-purple { background: #b28af6; }
+.dot-green { background: #15803d; }
+.dot-grey { background: #9ca3af; }
+
+.my-gig-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-gig-text strong {
+    font-size: 14px;
+    color: #111;
+}
+
+.my-gig-text span {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+/* How Gigs Work specific */
+.card-purple-tint {
+    background: #fcfaff;
+    border: 1px solid #decafc;
+
+}
+
+.purple-text {
+    color: #5a0792;
+}
+
+.instruction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inst-item {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #440072;
+}
+
+.inst-num {
+    font-weight: 800;
+    color: #440072;
+
+}
+
+.inst-item p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Reputation specific */
+.card-blue-tint {
+    background: #edf5fdf8;
+    border: 1px solid #c0d5fa;
+}
+
+.blue-text {
+    color: #021780;
+}
+
+.rep-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #021780;
+}
+
+.rep-row:last-child {
+    margin-bottom: 0;
+}
+
+.rep-row span {
+    width: 140px; 
+}
+
+.rep-bar-track {
+    flex: 1;
+    height: 6px;
+    background: #dadce0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.rep-bar-fill {
+    height: 100%;
+    background: #8DA8DB;
+    border-radius: 4px;
+}
+
+.rep-row strong {
+    width: 20px;
+    text-align: right;
+}

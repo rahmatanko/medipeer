@@ -190,9 +190,9 @@
     color: #6d4aff;
 }
 
-/* remove the standalone margin from focus-bubble */
+
 .focus-bubble {
-    margin: 0;   /* was: margin: 0 22px 30px */
+    margin: 0;   
 }
 
 .summary-sub {

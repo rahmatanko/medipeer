@@ -31,11 +31,6 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Soft shadow for flat look */
 }
 
-/* =========================================
-   LEFT COLUMN STYLES
-   ========================================= */
-
-/* Hero */
 .groups-hero {
     background: #251c4a; /* Deep purple from image */
     border-radius: 28px;

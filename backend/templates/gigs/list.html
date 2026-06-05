@@ -1,6 +1,199 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<h1>Gigs</h1>
-<p>Gigs page coming soon...</p>
+
+<div class="gigs-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>Academic Gigs</h1>
+            <p>Post a task, find a peer expert, get it done.</p>
+        </div>
+        <div class="hero-right">
+            <div class="hero-stat-box">
+                <span class="stat-num">38</span>
+                <span class="stat-label">Open Gigs</span>
+            </div>
+            <div class="hero-stat-box">
+                <span class="stat-num">12</span>
+                <span class="stat-label">Urgent</span>
+            </div>
+            <a href="#" class="post-gig-btn">+ Post a Gig</a>
+        </div>
+    </div>
+
+    <div class="gigs-filters-card">
+        <input type="text" class="filter-input" placeholder="Search gigs by course, keyword...">
+        <select class="filter-select">
+            <option>All Courses</option>
+        </select>
+        <select class="filter-select">
+            <option>All Status</option>
+        </select>
+        <select class="filter-select">
+            <option>Sort: Newest</option>
+        </select>
+    </div>
+
+    <div class="gigs-layout-grid">
+
+        <div class="gigs-main-col">
+
+            <div class="gig-card accent-red">
+                <div class="gig-card-header">
+                    <h2>Need OS Teaching Assistant URGENT</h2>
+                    <span class="tag tag-urgent">Urgent</span>
+                </div>
+                <div class="gig-course">COE 315 · Operating Systems</div>
+                <p class="gig-desc">Looking for someone strong in process scheduling and memory management to help prepare for finals. 2–3 sessions this week.</p>
+                
+                <div class="gig-meta">
+                    <span><i class="bi bi-clock"></i> 3 sessions</span>
+                    <span><i class="bi bi-geo-alt"></i> Online</span>
+                    <span class="rating-text"><i class="bi bi-star-fill"></i> 4.8 rated poster</span>
+                </div>
+
+                <div class="gig-card-footer">
+                    <div class="poster-info">
+                        <div class="avatar bg-blue">RR</div>
+                        <span>Posted by Rayan</span>
+                    </div>
+                    <button class="apply-btn">Apply</button>
+                </div>
+            </div>
+
+            <div class="gig-card accent-purple">
+                <div class="gig-card-header">
+                    <h2>Calc 2 HW Help : series & sequences</h2>
+                    <span class="tag tag-open">Open</span>
+                </div>
+                <div class="gig-course">MATH 202 · Calculus II</div>
+                <p class="gig-desc">Need help working through series convergence problems. Flexible timing, prefer campus or online.</p>
+                
+                <div class="gig-meta">
+                    <span><i class="bi bi-clock"></i> 1 session</span>
+                    <span><i class="bi bi-geo-alt"></i> Flexible</span>
+                    <span class="rating-text"><i class="bi bi-star-fill"></i> 4.5 rated poster</span>
+                </div>
+
+                <div class="gig-card-footer">
+                    <div class="poster-info">
+                        <div class="avatar bg-purple">AM</div>
+                        <span>Posted by Amna</span>
+                    </div>
+                    <button class="apply-btn">Apply</button>
+                </div>
+            </div>
+
+            <div class="gig-card accent-purple">
+                <div class="gig-card-header">
+                    <h2>Database ER diagram review</h2>
+                    <span class="tag tag-open">Open</span>
+                </div>
+                <div class="gig-course">COE 321 · Database Systems</div>
+                <p class="gig-desc">Need a second pair of eyes on my project ER diagram before submission. Quick 30-min session.</p>
+                
+                <div class="gig-meta">
+                    <span><i class="bi bi-clock"></i> 30 min</span>
+                    <span><i class="bi bi-geo-alt"></i> Online</span>
+                    <span class="rating-text"><i class="bi bi-star-fill"></i> 4.2 rated poster</span>
+                </div>
+
+                <div class="gig-card-footer">
+                    <div class="poster-info">
+                        <div class="avatar bg-green">JN</div>
+                        <span>Posted by Jenna</span>
+                    </div>
+                    <button class="apply-btn">Apply</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="gigs-sidebar-col">
+            
+            <div class="sidebar-card">
+                <h3>My Gigs</h3>
+                
+                <div class="my-gig-item">
+                    <div class="my-gig-info">
+                        <div class="dot dot-purple"></div>
+                        <div class="my-gig-text">
+                            <strong>OS TA Help</strong>
+                            <span>You posted · 2 applicants</span>
+                        </div>
+                    </div>
+                    <span class="tag tag-open">Open</span>
+                </div>
+
+                <div class="my-gig-item">
+                    <div class="my-gig-info">
+                        <div class="dot dot-green"></div>
+                        <div class="my-gig-text">
+                            <strong>Algo Review</strong>
+                            <span>You applied · accepted</span>
+                        </div>
+                    </div>
+                    <span class="tag tag-active">Active</span>
+                </div>
+
+                <div class="my-gig-item" style="border-bottom: none;">
+                    <div class="my-gig-info">
+                        <div class="dot dot-grey"></div>
+                        <div class="my-gig-text">
+                            <strong>Calc HW</strong>
+                            <span>Completed · rated</span>
+                        </div>
+                    </div>
+                    <span class="tag tag-done">Done</span>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text">How gigs work</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Post a gig describing what you need help with</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>Peer experts apply — pick based on their reputation score</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Complete the session and rate each other</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>Ratings auto-update your reputation score</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-blue-tint">
+                <h3 class="blue-text">Gig Reputation Breakdown</h3>
+                
+                <div class="rep-row">
+                    <span>Gigs completed</span>
+                    <div class="rep-bar-track"><div class="rep-bar-fill" style="width: 80%;"></div></div>
+                    <strong>3</strong>
+                </div>
+                
+                <div class="rep-row">
+                    <span>Avg rating given</span>
+                    <div class="rep-bar-track"><div class="rep-bar-fill" style="width: 90%;"></div></div>
+                    <strong>4.5</strong>
+                </div>
+                
+                <div class="rep-row">
+                    <span>Avg rating received</span>
+                    <div class="rep-bar-track"><div class="rep-bar-fill" style="width: 80%;"></div></div>
+                    <strong>4.0</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}
