@@ -27,11 +27,12 @@
     <div class="brand">Medipeer</div>
 
     <div class="nav-links">
-        <a href="/" class="active">Dashboard</a>
-        <a href="/marketplace/">Note Marketplace</a>
-        <a href="/groups/">Study Groups</a>
-        <a href="/gigs/">Academic Gigs</a>
-        <a href="/gigs/">Contact Us</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'marketplace' %}">Marketplace</a>
+        <a href="{% url 'groups' %}">Study Groups</a>
+        <a href="{% url 'gigs' %}">Gigs</a>
+        <a href="{% url 'search_results' %}">Search</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
     </div>
 
     <div class="nav-actions">
