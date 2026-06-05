@@ -1,6 +1,177 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<h1>Marketplace</h1>
-<p>Marketplace page coming soon...</p>
+
+<div class="dashboard-header">
+    <div>
+        <h1>Medipol University Note Marketplace</h1>
+        <p>Buy, sell, and discover top-rated academic notes from your peers.</p>
+    </div>
+    <a href="/upload-note/" class="primary-action-btn">+ Upload Note</a>
+</div>
+
+<div class="dashboard-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+        <!-- 1. Filters Row -->
+        <div class="focus-bubble">
+            <span class="focus-label">Filters & Search Options</span>
+            <div class="filter-row">
+                <select class="filter-select">
+                    <option>Department (COE, EEE, Medicine...)</option>
+                </select>
+                <select class="filter-select">
+                    <option>Course</option>
+                </select>
+                <select class="filter-select">
+                    <option>Semester</option>
+                </select>
+                <select class="filter-select">
+                    <option>Sort By</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 3. Note Listings Grid -->
+        <div class="focus-bubble">
+            <span class="focus-label">Note Listings</span>
+            <div class="note-grid">
+                
+                <!-- Listing Card 1 -->
+                <div class="note-card">
+                    <div class="card-header">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span class="preview-tag">Preview</span>
+                    </div>
+                    <strong>Database Systems Final Exam Notes</strong>
+                    <div class="author-row">
+                        <div class="author">
+                            <div class="lb-avatar small-ava" style="background:#fef3c7; color:#b45309;">R</div> Rahma T.
+                        </div>
+                        <span class="rating"><i class="bi bi-star-half"></i> 4.8</span>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="listing-price">Price: <strong>25₺</strong></span>
+                        <a href="#" class="primary-action-btn small-btn">Buy</a>
+                    </div>
+                </div>
+
+                <!-- Listing Card 2 -->
+                <div class="note-card">
+                    <div class="card-header">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <strong>Diff Eq Midterm Study Guide</strong>
+                    <div class="author-row">
+                        <div class="author">
+                            <div class="lb-avatar small-ava" style="background:#e1f7df; color:#166534;">S</div> Sarah K.
+                        </div>
+                        <span class="rating"><i class="bi bi-star-half"></i> 4.7</span>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="listing-price">Price: <strong>30₺</strong></span>
+                        <a href="#" class="primary-action-btn small-btn">Buy</a>
+                    </div>
+                </div>
+
+                <!-- Listing Card 3 -->
+                <div class="note-card">
+                    <div class="card-header">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <strong>Calc 2 Practice Problems</strong>
+                    <div class="author-row">
+                        <div class="author">
+                            <div class="lb-avatar small-ava" style="background:#ede9fe; color:#7c3aed;">J</div> Jenna L.
+                        </div>
+                        <span class="rating"><i class="bi bi-star-half"></i> 4.9</span>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="listing-price">Price: <strong>15₺</strong></span>
+                        <a href="#" class="primary-action-btn small-btn">Buy</a>
+                    </div>
+                </div>
+
+                 <!-- Listing Card 4 -->
+                <div class="note-card">
+                    <div class="card-header">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span class="preview-tag">Preview</span>
+                    </div>
+                    <strong>Operating Systems Labs Summary</strong>
+                    <div class="author-row">
+                        <div class="author">
+                            <div class="lb-avatar small-ava">R</div> Rayan R.
+                        </div>
+                        <span class="rating"><i class="bi bi-star-fill"></i> 5.0</span>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="listing-price">Price: <strong>20₺</strong></span>
+                        <a href="#" class="primary-action-btn small-btn">Buy</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+        
+        <!-- Marketplace Stats -->
+        <div class="summary-bubble">
+            <h2><i class="bi bi-bar-chart-line"></i> Marketplace Stats</h2>
+            <p class="summary-sub">Overall platform activity</p>
+            <div class="stats-list">
+                <div class="stat-item">
+                    <span class="rep-dot" style="background:#8DA8DB"></span>
+                    <strong>243</strong> <span>Notes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="rep-dot" style="background:#D77F5C"></span>
+                    <strong>98</strong> <span>Contributors</span>
+                </div>
+                <div class="stat-item">
+                    <span class="rep-dot" style="background:#B0C9B8"></span>
+                    <strong>127</strong> <span>Transactions</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Featured Notes -->
+
+         <div class="focus-bubble" style="margin-top: 24px;">
+        <span class="focus-label"><h2><i class="bi bi-clock-history"></i> Recently Viewed Notes</h2></span>
+        <div class="note-grid">
+        <div class="course-bubble bubble-blue">
+                    <strong><i class="bi bi-file-earmark-pdf-fill"></i> Calc 2 Practice Problems</strong>
+                    
+                </div>
+        <div class="course-bubble bubble-green">
+                    <strong><i class="bi bi-file-earmark-pdf-fill"></i> Calc 2 Practice Problems</strong>
+                    
+                </div>
+        <div class="course-bubble bubble-purple">
+                    <strong> <i class="bi bi-file-earmark-pdf-fill"></i> Calc 2 Practice Problems</strong>
+                
+                </div>
+            </div>
+    </div>
+
+        <!-- Trending -->
+        <div class="summary-bubble" style="margin-top: 24px;">
+            <h2><i class="bi bi-fire"></i> Trending this week</h2>
+            <div class="trending-list">
+                <div class="trending-item">Operating Systems Final</div>
+                <div class="trending-item">Data Structures Cheatsheet</div>
+                <div class="trending-item">COE223 Midterm Summary</div>
+                <div class="trending-item">Calc 2 Final</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}
