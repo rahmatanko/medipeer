@@ -1,0 +1,424 @@
+/* General Layout */
+.groups-page {
+    padding: 24px;
+    background: #f4f5f8; 
+    min-height: 100vh;
+}
+
+.groups-bento-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr; /* Left side slightly wider */
+    gap: 24px;
+    margin: 0 auto;
+}
+
+.bento-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.bento-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Base Card Styling */
+.groups-stat-card, .groups-available-card, .my-groups-card, .sessions-card, .mini-calendar {
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Soft shadow for flat look */
+}
+
+/* =========================================
+   LEFT COLUMN STYLES
+   ========================================= */
+
+/* Hero */
+.groups-hero {
+    background: #251c4a; /* Deep purple from image */
+    border-radius: 28px;
+    padding: 36px;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(37, 28, 74, 0.15);
+}
+
+.groups-hero-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1.1;
+}
+
+.groups-hero-sub {
+    font-size: 15px;
+    color: #a8a3c2;
+    margin-bottom: 24px;
+}
+
+.groups-create-btn {
+    position: absolute;
+    top: 36px;
+    right: 36px;
+    background: rgba(255, 255, 255, 0.24);
+    color: rgba(255, 255, 255, 0.897);
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.groups-create-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.groups-filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.groups-filters select {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    appearance: none; /* removes default arrow for cleaner look */
+}
+
+.groups-filters select option {
+    background: #251c4a;
+    color: white;
+}
+
+/* Stats Row */
+.groups-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.groups-stat-card {
+    background: white;
+}
+
+.groups-stat-num {
+    font-size: 42px;
+    font-weight: 800;
+    color: #624597;
+    line-height: 1;
+}
+
+.groups-stat-label {
+    font-size: 14px;
+    color: #A082D7;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.groups-stat-bar {
+    height: 6px;
+    background: #eeebff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.groups-stat-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: #A082D7;
+}
+
+/* Available Groups */
+.groups-available-card {
+    background: white;
+}
+
+.groups-available-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.groups-available-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+}
+
+.groups-showing {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.group-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.group-item:first-child {
+    padding-top: 0;
+}
+
+.group-item:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+.group-item-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.group-item-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.group-item-meta {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.group-join-btn {
+    background: white;
+    color: #111;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.group-join-btn:hover {
+    border-color: #251c4a;
+}
+
+/* =========================================
+   RIGHT COLUMN STYLES
+   ========================================= */
+
+/* My Groups */
+.my-groups-card {
+    background: #edfcf1; 
+}
+
+.my-groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.my-groups-header h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #166534;
+    margin: 0;
+}
+
+.my-groups-see-all {
+    font-size: 12px;
+    color: #166534;
+    font-weight: 700;
+    text-decoration: none;
+    background: #bbf7d0;
+    padding: 6px 14px;
+    border-radius: 14px;
+}
+
+.my-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(22, 101, 52, 0.1);
+}
+
+.my-group-item:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+.my-group-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #166534;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.my-group-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #166534;
+}
+
+.my-group-time {
+    font-size: 13px;
+    color: #166534;
+    font-weight: 600;
+}
+
+/* Upcoming Sessions */
+.sessions-card {
+    background: #fdf8e7; /* Light beige/yellow */
+}
+
+.sessions-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #92400e;
+    margin: 0 0 20px;
+}
+
+.session-item {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.session-item:last-child {
+    margin: 0;
+}
+
+.session-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111;
+}
+
+.session-time {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.session-tag {
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-weight: 700;
+}
+
+.tag-orange {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.tag-yellow {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+/* Mini Calendar */
+.mini-calendar {
+    background: white;
+}
+
+.cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cal-header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+}
+
+.cal-nav {
+    background: #f3f4f6;
+    border: none;
+    font-size: 18px;
+    color: #4b5563;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.cal-day-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9ca3af;
+    padding-bottom: 8px;
+}
+
+.cal-day {
+    font-size: 14px;
+    color: #374151;
+    padding: 8px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cal-day:hover {
+    background: #f3f4f6;
+}
+
+.cal-day.today {
+    background: #8c7ff9; /* Purple accent to match stats row */
+    color: white;
+}
+
+.cal-day.has-session::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin: 4px auto 0;
+}
+
+.cal-day.today.has-session::after {
+    background: white;
+}

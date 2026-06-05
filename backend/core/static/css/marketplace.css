@@ -1,10 +1,8 @@
-/* =========================================
-   MARKETPLACE SPECIFIC STYLES
-   ========================================= */
 
 .right-col {
     display: flex;
     flex-direction: column;
+
 }
 
 /* Filters Row */
@@ -101,7 +99,6 @@
     border-radius: 18px;
 }
 
-/* Note Listings Grid (Main body) */
 .note-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

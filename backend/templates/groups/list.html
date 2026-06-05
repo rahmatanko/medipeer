@@ -1,6 +1,190 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<h1>Study Groups</h1>
-<p>Study Groups page coming soon...</p>
+
+<div class="groups-page">
+    <div class="groups-bento-grid">
+
+        <div class="bento-left">
+            
+            <div class="groups-hero">
+                <a href="/groups/create/" class="groups-create-btn">+ Create Group</a>
+                <div class="groups-hero-title"> <i class="bi bi-people"></i> Study Groups</div>
+                <div class="groups-hero-sub">Find groups, collaborate, and prepare together</div>
+                <div class="groups-filters">
+                    <select>
+                        <option>Department ▼</option>
+                        <option>Computer Engineering</option>
+                    </select>
+                    <select>
+                        <option>Course ▼</option>
+                        <option>COE 321</option>
+                    </select>
+                    <select>
+                        <option>Meeting Type ▼</option>
+                        <option>Online</option>
+                    </select>
+                    <select>
+                        <option>Sort By ▼</option>
+                        <option>Most Members</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="groups-stats-row">
+                <div class="groups-stat-card">
+                    <div class="groups-stat-num">{{ total_groups|default:"142" }}</div>
+                    <div class="groups-stat-label">Active Groups</div>
+                    <div class="groups-stat-bar">
+                        <div class="groups-stat-bar-fill" style="width: 71%"></div>
+                    </div>
+                </div>
+                <div class="groups-stat-card">
+                    <div class="groups-stat-num">{{ total_students|default:"850" }}+</div>
+                    <div class="groups-stat-label">Students Studying</div>
+                    <div class="groups-stat-bar">
+                        <div class="groups-stat-bar-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Available Groups</h2>
+                    <span class="groups-showing">Showing {{ groups|length|default:"24" }} groups</span>
+                </div>
+                <div class="groups-list">
+                    {% for group in groups %}
+                    {% empty %}
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#e4ebfa;color:#1d4ed8;">D</div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">Database Systems Midterm Prep</div>
+                            <div class="group-item-meta">COE 321 · Campus · 4/10 members</div>
+                        </div>
+                        <a href="#" class="group-join-btn">Join</a>
+                    </div>
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#f1eafa;color:#7c3aed;">A</div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">Algorithms Study Session</div>
+                            <div class="group-item-meta">COE 223 · Online · 12/20 members</div>
+                        </div>
+                        <a href="#" class="group-join-btn">Join</a>
+                    </div>
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#fbf3dc;color:#b45309;">I</div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">Intro to Programming Labs</div>
+                            <div class="group-item-meta">COE 177 · Campus · 2/5 members</div>
+                        </div>
+                        <a href="#" class="group-join-btn">Join</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-right">
+
+            <div class="my-groups-card">
+                <div class="my-groups-header">
+                    <h3>My Groups</h3>
+                    <a href="/groups/mine/" class="my-groups-see-all">See All</a>
+                </div>
+                <div class="my-group-item">
+                    <div class="my-group-name"><div class="my-group-dot"></div> Calc 2 Wizards</div>
+                    <div class="my-group-time">14:00 today</div>
+                </div>
+                <div class="my-group-item">
+                    <div class="my-group-name"><div class="my-group-dot"></div> OS Final Grind</div>
+                    <div class="my-group-time">10:00 tmrw</div>
+                </div>
+            </div>
+
+            <div class="sessions-card">
+                <h3>Upcoming Sessions</h3>
+                <div class="session-item">
+                    <div>
+                        <div class="session-name">Calc 2 Wizards</div>
+                        <div class="session-time">Today, 14:00</div>
+                    </div>
+                    <div class="session-tag tag-orange">Online</div>
+                </div>
+                <div class="session-item">
+                    <div>
+                        <div class="session-name">OS Final Grind</div>
+                        <div class="session-time">Tomorrow, 10:00</div>
+                    </div>
+                    <div class="session-tag tag-yellow">North Campus</div>
+                </div>
+            </div>
+
+            <div class="mini-calendar">
+                <div class="cal-header">
+                    <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+                    <h3 id="cal-month-label">June 2026</h3>
+                    <button class="cal-nav" onclick="changeMonth(1)">›</button>
+                </div>
+                <div class="cal-grid" id="cal-grid">
+                    <div class="cal-day-label">Su</div>
+                    <div class="cal-day-label">Mo</div>
+                    <div class="cal-day-label">Tu</div>
+                    <div class="cal-day-label">We</div>
+                    <div class="cal-day-label">Th</div>
+                    <div class="cal-day-label">Fr</div>
+                    <div class="cal-day-label">Sa</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+//calender js     
+const sessionDays = [5, 12, 18, 24];
+let current = new Date();
+
+function renderCalendar() {
+    const grid = document.getElementById('cal-grid');
+    const label = document.getElementById('cal-month-label');
+    const today = new Date();
+
+    label.textContent = current.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    const existing = grid.querySelectorAll('.cal-day, .cal-empty');
+    existing.forEach(e => e.remove());
+
+    const firstDay = new Date(current.getFullYear(), current.getMonth(), 1).getDay();
+    const daysInMonth = new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day empty cal-empty';
+        empty.textContent = '.';
+        grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const div = document.createElement('div');
+        div.className = 'cal-day';
+        div.textContent = d;
+        const isToday = d === today.getDate() &&
+            current.getMonth() === today.getMonth() &&
+            current.getFullYear() === today.getFullYear();
+        if (isToday) div.classList.add('today');
+        if (sessionDays.includes(d)) div.classList.add('has-session');
+        grid.appendChild(div);
+    }
+}
+
+function changeMonth(dir) {
+    current = new Date(current.getFullYear(), current.getMonth() + dir, 1);
+    renderCalendar();
+}
+
+renderCalendar();
+</script>
+
 {% endblock %}
