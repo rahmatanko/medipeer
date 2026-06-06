@@ -1,31 +1,254 @@
-from django.shortcuts import render
+from urllib import request
+
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from .serializers import RegisterSerializer 
+from .forms import UserRegistrationForm, UserLoginForm, StudentProfileForm
+from .models import Course, Note, Student, Gig, Study_group, enrolls_in, joins
+
+# ==================== AUTHENTICATION VIEWS ====================
+
+@require_http_methods(["GET", "POST"])
+def register(request):
+    """User registration view with database linkage"""
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Registration successful! You can now log in.')
+            return redirect('login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'auth/register.html', {'form': form})
+
+
+@require_http_methods(["GET", "POST"])
+def user_login(request):
+    """User login view with session management"""
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email'].lower()
+            password = form.cleaned_data['password']
+            
+            # Authenticate using email
+            try:
+                user = authenticate(request, username=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, f'Welcome back, {user.first_name}!')
+                    return redirect('dashboard')
+            except:
+                pass
+            
+            messages.error(request, 'Invalid email or password.')
+    else:
+        form = UserLoginForm()
+    
+    return render(request, 'auth/login.html', {'form': form})
+
+
+@login_required(login_url='login')
+def user_logout(request):
+    """User logout view"""
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('login')
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    """Edit student profile"""
+    try:
+        student = request.user.student
+    except Student.DoesNotExist:
+        messages.error(request, 'Student profile not found.')
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = StudentProfileForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = StudentProfileForm(instance=student)
+    
+    return render(request, 'profile_edit.html', {'form': form, 'student': student})
+
+
+@login_required(login_url='login')
+def profile_view(request):
+    """Render the current authenticated student's profile."""
+    try:
+        student = request.user.student
+    except Student.DoesNotExist:
+        messages.error(request, 'Student profile not found.')
+        return redirect('dashboard')
+
+    enrolled_courses = enrolls_in.objects.filter(student=student).select_related('course')
+    notes_count = Note.objects.filter(author=student).count()
+    gigs_count = Gig.objects.filter(student=student).count()
+    groups_joined = joins.objects.filter(student=student).count()
+
+    return render(request, 'profile.html', {
+        'student': student,
+        'enrolled_courses': enrolled_courses,
+        'notes_count': notes_count,
+        'gigs_count': gigs_count,
+        'groups_joined': groups_joined,
+    })
+
+
+# ==================== API AUTHENTICATION VIEWS ====================
+
+@permission_classes([AllowAny])
+def register_student(request):
+    serializer = RegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        return Response({"message": "Student registered successfully"}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def dashboard(request):
     return render(request, "dashboard.html")
 
 def marketplace(request):
-    return render(request, "marketplace/list.html")
 
-def note_detail(request):
-    return render(request, "marketplace/detail.html")
+    all_notes = Note.objects.all().order_by("-upload_date")
+    return render(request, "marketplace/list.html", {"notes": all_notes})
+
+def note_detail(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    return render(request, "marketplace/detail.html", {"note": note})
 
 def note_upload(request):
-    return render(request, "marketplace/note_upload.html")
 
+    if request.method == "GET":
+        return render(request, "marketplace/note_upload.html")
+    elif request.method == "POST":
+        title = request.POST.get("note_title")
+        description = request.POST.get("note_description")
+        price = request.POST.get("note_price", 0.00)
+        file = request.FILES.get("file_path")
+        course_code = request.POST.get("course_code")
+
+        try:
+            student_profile = request.user.student
+        except:
+            messages.error(request, "Error: User does not have an associated student profile.")
+        
+            return redirect("note_upload")
+        
+        try:
+            course = Course.objects.get(course_code=course_code)
+        except Course.DoesNotExist:
+            messages.error(request, "Error: Course with the provided code does not exist.")
+            return redirect("note_upload")
+        
+        Note.objects.create(
+            course=course,
+            author=student_profile,
+            note_title=title,
+            note_description=description,
+            note_price=price,
+            file_path=file
+        )
+
+        messages.success(request, "Note uploaded successfully!")
+        return redirect("marketplace")
+         
 def gigs(request):
-    return render(request, "gigs/list.html")
+
+    all_gigs = Gig.objects.all().order_by("-id")
+    return render(request, "gigs/list.html", {"gigs": all_gigs})
 
 def gig_create(request):
-    return render(request, "gigs/gig_create.html")
 
+    if request.method == "GET":
+        return render(request, "gigs/gig_create.html")
+    elif request.method == "POST":
+        title = request.POST.get("gig_title")
+        description = request.POST.get("gig_description")
+        budget = request.POST.get("budget", 0.00)
+        course_code = request.POST.get("course_code")
+
+        try:
+            student_profile = request.user.student
+        except:
+            messages.error(request, "Error: User does not have an associated student profile.")
+        
+            return redirect("gig_create")
+        
+        try:
+            course = Course.objects.get(course_code=course_code)
+        except Course.DoesNotExist:
+            messages.error(request, "Error: Course with the provided code does not exist.")
+            return redirect("gig_create")
+        
+        Gig.objects.create(
+            course=course,
+            student=student_profile,
+            gig_title=title,
+            gig_description=description,
+            budget=budget
+        )
+
+        messages.success(request, "Gig created successfully!")
+        return redirect("gigs")
+    
 def groups(request):
-    return render(request, "groups/list.html")
+    all_groups = Study_group.objects.all().order_by("-id")
+    return render(request, "groups/list.html", {"groups": all_groups})
 
 def group_detail(request):
     return render(request, "groups/detail.html")
 
 def group_create(request):
+
+    if request.method == "POST":
+        name = request.POST.get("group_name")
+        course_code = request.POST.get("course_code")
+        try:
+            course = Course.objects.get(course_code=course_code)
+            new_group = Study_group.objects.create(group_name=name, course=course)
+            new_group.members.add(request.user.student)
+            messages.success(request, "Group created successfully!")
+        except:
+            messages.error(request, "Error: Failed to create group.")
+        return redirect("groups")
     return render(request, "groups/group_create.html")
+
+def join_group(request, group_id):
+    group = get_object_or_404(Study_group, id=group_id)
+
+    if request.user.student in group.members.all():
+        messages.warning(request, "You are already a member of this group.")
+        return redirect("groups")
+    try:
+        group.members.add(request.user.student)
+        messages.success(request, "You have joined the group successfully!")
+    except:
+        messages.error(request, "Error: Failed to join the group.")
+    return redirect("groups")
 
 def search_results(request):
     return render(request, "search/results.html")

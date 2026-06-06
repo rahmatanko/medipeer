@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-
     'core',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +76,12 @@ WSGI_APPLICATION = 'medipeer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'medipeer_db',
+        'USER': 'medipeer_user',
+        'PASSWORD': 'medipeer_password_2026',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -126,3 +129,37 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Authentication settings
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Custom authentication backend
+AUTHENTICATION_BACKENDS = [
+    'core.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Email backend for development (console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
