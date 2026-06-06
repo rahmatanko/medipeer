@@ -106,6 +106,10 @@
     box-shadow: 0 25px 70px rgba(65, 52, 120, 0.10);
 }
 
+.dashboard-header .primary-action-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
 .course-bubbles {
     margin-top: 28px;
     display: grid;

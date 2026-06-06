@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="gigs-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>Post a Gig</h1>
+            <p>Describe what you need help with and find a peer expert.</p>
+        </div>
+        <div class="hero-right">
+            <a href="{% url 'gigs' %}" class="post-gig-btn">← Back to Gigs</a>
+        </div>
+    </div>
+
+    <div class="gig-create-grid">
+
+        <!-- LEFT: Form -->
+        <div class="sidebar-card">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="gig-alert gig-alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <h3>Gig Details</h3>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Gig Title</label>
+                    <input
+                        type="text"
+                        name="gig_name"
+                        class="gc-input"
+                        placeholder="e.g. Need OS Teaching Assistant for finals"
+                        required
+                    />
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Description</label>
+                    <textarea
+                        name="gig_description"
+                        class="gc-input gc-textarea"
+                        placeholder="Describe what you need help with, how many sessions, your schedule..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="gc-form-row">
+                    <div class="gc-form-group">
+                        <label class="gc-label">Course Code</label>
+                        <input
+                            type="text"
+                            name="course_code"
+                            class="gc-input"
+                            placeholder="e.g. COE 321"
+                            required
+                        />
+                    </div>
+                    <div class="gc-form-group">
+                        <label class="gc-label">Budget (₺)</label>
+                        <input
+                            type="number"
+                            name="gig_price"
+                            class="gc-input"
+                            placeholder="e.g. 50"
+                            min="0"
+                            step="0.01"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Service Type</label>
+                    <select name="services_type" class="gc-input" required>
+                        <option value="" disabled selected>Select a type</option>
+                        <option value="tutoring">Tutoring</option>
+                        <option value="hw_help">Homework Help</option>
+                        <option value="exam_prep">Exam Prep</option>
+                        <option value="project_help">Project Help</option>
+                        <option value="review">Review / Feedback</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="gc-submit-btn">
+                    <i class="bi bi-send"></i> Post Gig
+                </button>
+            </form>
+
+        </div>
+
+        <!-- RIGHT: Tips -->
+        <div class="gig-create-right">
+
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text">Tips for a good gig</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Be specific — mention the course, topic, and what you're struggling with</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>State how many sessions you need and your preferred schedule</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Set a fair price — check similar gigs for reference</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>After the session, rate your peer — it helps everyone's reputation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-blue-tint">
+                <h3 class="blue-text">What happens next?</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Your gig goes live and peers with matching skills can apply</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>Review applicants by their reputation score and past ratings</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Accept an applicant — the gig status updates to Active</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>Complete the session — both sides rate, reputation auto-updates</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

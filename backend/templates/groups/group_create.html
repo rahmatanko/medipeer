@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="groups-page">
+
+    <div class="groups-hero">
+        <a href="{% url 'groups' %}" class="groups-create-btn">← Back to Groups</a>
+        <div class="groups-hero-title"><i class="bi bi-people"></i> Create a Study Group</div>
+        <div class="groups-hero-sub">Start a group, invite peers, and study together.</div>
+    </div>
+
+    <div class="group-create-grid">
+
+        <!-- LEFT: Form -->
+        <div class="groups-available-card">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="gig-alert gig-alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <h2>Group Details</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Group Name</label>
+                    <input
+                        type="text"
+                        name="group_name"
+                        class="gc-input"
+                        placeholder="e.g. Database Systems Midterm Prep"
+                        required
+                    />
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Course Code</label>
+                    <input
+                        type="text"
+                        name="course_code"
+                        class="gc-input"
+                        placeholder="e.g. COE 321"
+                        required
+                    />
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Max Members</label>
+                    <input
+                        type="number"
+                        name="max_members"
+                        class="gc-input"
+                        placeholder="e.g. 10"
+                        min="2"
+                        max="50"
+                        value="10"
+                        required
+                    />
+                </div>
+
+                <button type="submit" class="gc-submit-btn">
+                    <i class="bi bi-people"></i> Create Group
+                </button>
+            </form>
+
+        </div>
+
+        <!-- RIGHT: Tips -->
+        <div class="gig-create-right">
+
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text">Tips for a good group</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Give your group a clear name so peers can find it easily</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>Use the exact course code so it shows up in course filters</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Keep max members reasonable — smaller groups study better</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>After creating, share the group link with your classmates</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-blue-tint">
+                <h3 class="blue-text">What happens next?</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Your group goes live and appears in the available groups list</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>You are automatically added as the group creator</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Peers can find and join your group from the Study Groups page</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>Leading a group contributes 25% to your reputation score</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

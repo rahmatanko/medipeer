@@ -1,5 +1,5 @@
 from urllib import request
-
+from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -181,6 +181,7 @@ def gigs(request):
     all_gigs = Gig.objects.all().order_by("-id")
     return render(request, "gigs/list.html", {"gigs": all_gigs})
 
+@login_required(login_url='login')
 def gig_create(request):
 
     if request.method == "GET":
@@ -251,7 +252,35 @@ def join_group(request, group_id):
     return redirect("groups")
 
 def search_results(request):
-    return render(request, "search/results.html")
+    query = request.GET.get('q', '').strip()
+    
+    notes = []
+    gigs = []
+    groups = []
+
+    if query:
+        notes = Note.objects.filter(
+            models.Q(note_title__icontains=query) |
+            models.Q(note_description__icontains=query)
+        ).select_related('course', 'author')
+
+        gigs = Gig.objects.filter(
+            models.Q(gig_name__icontains=query) |
+            models.Q(gig_description__icontains=query)
+        ).select_related('course', 'student')
+
+        groups = Study_group.objects.filter(
+            models.Q(group_name__icontains=query) |
+            models.Q(description__icontains=query)
+        ).select_related('course', 'creator')
+
+    return render(request, 'search/results.html', {
+        'query': query,
+        'notes': notes,
+        'gigs': gigs,
+        'groups': groups,
+        'total': len(notes) + len(gigs) + len(groups),
+    })
 
 def contact(request):
     return render(request, "contact.html")

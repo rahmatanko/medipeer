@@ -1,6 +1,161 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<h1>Search</h1>
-<p>Search page coming soon...</p>
+
+<div class="groups-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>Search</h1>
+            <p>Search across notes, gigs, and study groups.</p>
+        </div>
+        <div class="hero-right">
+            {% if query %}
+            <div class="hero-stat-box">
+                <span class="stat-num">{{ total }}</span>
+                <span class="stat-label">Results</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="search-hero-bar">
+        <form method="GET" action="{% url 'search_results' %}" class="search-form">
+            <div class="search-input-wrap">
+                <i class="bi bi-search search-icon"></i>
+                <input
+                    type="text"
+                    name="q"
+                    class="search-main-input"
+                    placeholder="Search notes, gigs, groups..."
+                    value="{{ query }}"
+                    autofocus
+                />
+                <button type="submit" class="search-submit-btn">Search</button>
+            </div>
+        </form>
+    </div>
+
+    {% if query %}
+
+        {% if total == 0 %}
+        <div class="search-empty">
+            <i class="bi bi-search" style="font-size:48px;color:#d1d5db"></i>
+            <h3>No results for "{{ query }}"</h3>
+            <p>Try a different keyword, course code, or topic.</p>
+        </div>
+
+        {% else %}
+
+        <div class="search-results-grid">
+
+            <!-- Notes -->
+            {% if notes %}
+            <div class="search-section">
+                <div class="search-section-label">
+                    <i class="bi bi-file-earmark-text"></i> Notes
+                    <span class="search-count">{{ notes|length }}</span>
+                </div>
+                {% for note in notes %}
+                <div class="search-result-card">
+                    <div class="src-icon" style="background:#ede9fe;color:#7c3aed;">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="src-info">
+                        <div class="src-title">{{ note.note_title }}</div>
+                        <div class="src-meta">
+                            {{ note.course.course_code }} ·
+                            by {{ note.author.student_name }} ·
+                            {{ note.note_price }} ₺
+                        </div>
+                        {% if note.note_description %}
+                        <div class="src-desc">{{ note.note_description|truncatechars:100 }}</div>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'note_detail' note.id %}" class="src-action-btn">View</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Gigs -->
+            {% if gigs %}
+            <div class="search-section">
+                <div class="search-section-label">
+                    <i class="bi bi-briefcase"></i> Gigs
+                    <span class="search-count">{{ gigs|length }}</span>
+                </div>
+                {% for gig in gigs %}
+                <div class="search-result-card">
+                    <div class="src-icon" style="background:#fef3c7;color:#b45309;">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <div class="src-info">
+                        <div class="src-title">{{ gig.gig_name }}</div>
+                        <div class="src-meta">
+                            {{ gig.course.course_code }} ·
+                            by {{ gig.student.student_name }} ·
+                            {{ gig.gig_status|capfirst }} ·
+                            {{ gig.gig_price }} ₺
+                        </div>
+                        {% if gig.gig_description %}
+                        <div class="src-desc">{{ gig.gig_description|truncatechars:100 }}</div>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'gigs' %}" class="src-action-btn">View</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Groups -->
+            {% if groups %}
+            <div class="search-section">
+                <div class="search-section-label">
+                    <i class="bi bi-people"></i> Study Groups
+                    <span class="search-count">{{ groups|length }}</span>
+                </div>
+                {% for group in groups %}
+                <div class="search-result-card">
+                    <div class="src-icon" style="background:#dcfce7;color:#16a34a;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="src-info">
+                        <div class="src-title">{{ group.group_name }}</div>
+                        <div class="src-meta">
+                            {{ group.course.course_code }} ·
+                            by {{ group.creator.student_name }} ·
+                            max {{ group.max_members }} members
+                        </div>
+                        {% if group.description %}
+                        <div class="src-desc">{{ group.description|truncatechars:100 }}</div>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'groups' %}" class="src-action-btn">View</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+        {% endif %}
+
+    {% else %}
+    <!-- Empty state before searching -->
+    <div class="search-empty">
+        <i class="bi bi-search" style="font-size:48px;color:#d1d5db"></i>
+        <h3>What are you looking for?</h3>
+        <p>Search notes by title, gigs by course, or groups by name.</p>
+        <div class="search-suggestions">
+            <span class="search-suggestion-tag">COE 321</span>
+            <span class="search-suggestion-tag">Calculus</span>
+            <span class="search-suggestion-tag">OS Final</span>
+            <span class="search-suggestion-tag">Algorithms</span>
+            <span class="search-suggestion-tag">Database</span>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
 {% endblock %}

@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="groups-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>Upload a Note</h1>
+            <p>Share your notes with peers and earn from your hard work.</p>
+        </div>
+        <div class="hero-right">
+            <a href="{% url 'marketplace' %}" class="post-gig-btn">← Back to Marketplace</a>
+        </div>
+    </div>
+
+    <div class="group-create-grid">
+
+        <!-- LEFT: Form -->
+        <div class="groups-available-card">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="gig-alert gig-alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <h2>Note Details</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Note Title</label>
+                    <input
+                        type="text"
+                        name="note_title"
+                        class="gc-input"
+                        placeholder="e.g. Database Systems Final Exam Notes"
+                        required
+                    />
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Description</label>
+                    <textarea
+                        name="note_description"
+                        class="gc-input gc-textarea"
+                        placeholder="Briefly describe what's covered in these notes..."
+                    ></textarea>
+                </div>
+
+                <div class="gc-form-row">
+                    <div class="gc-form-group">
+                        <label class="gc-label">Course Code</label>
+                        <input
+                            type="text"
+                            name="course_code"
+                            class="gc-input"
+                            placeholder="e.g. COE 321"
+                            required
+                        />
+                    </div>
+                    <div class="gc-form-group">
+                        <label class="gc-label">Price (₺)</label>
+                        <input
+                            type="number"
+                            name="note_price"
+                            class="gc-input"
+                            placeholder="e.g. 25"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="gc-form-group">
+                    <label class="gc-label">Upload File</label>
+                    <div class="file-drop-zone" id="dropZone">
+                        <i class="bi bi-cloud-arrow-up file-drop-icon"></i>
+                        <div class="file-drop-text">Drag & drop your file here</div>
+                        <div class="file-drop-sub">or click to browse — PDF only, max 10MB</div>
+                        <input
+                            type="file"
+                            name="file_path"
+                            id="fileInput"
+                            class="file-input-hidden"
+                            accept=".pdf"
+                            required
+                        />
+                    </div>
+                    <div class="file-selected" id="fileSelected" style="display:none;">
+                        <i class="bi bi-file-earmark-pdf" style="color:#ef4444"></i>
+                        <span id="fileName"></span>
+                        <button type="button" class="file-remove-btn" onclick="removeFile()">✕</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="gc-submit-btn">
+                    <i class="bi bi-cloud-upload"></i> Upload Note
+                </button>
+            </form>
+
+        </div>
+
+        <!-- RIGHT: Tips -->
+        <div class="gig-create-right">
+
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text">Tips for a good listing</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Use a clear title — include the course name and topic</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>Write a short description so buyers know what's inside</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Price fairly — check similar notes in the marketplace first</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>Only upload PDF files — other formats are not supported</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-blue-tint">
+                <h3 class="blue-text">What happens after upload?</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">1.</span>
+                        <p>Your note is listed in the marketplace immediately</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">2.</span>
+                        <p>A watermark is applied automatically to protect your content</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">3.</span>
+                        <p>Peers can buy and rate your note</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">4.</span>
+                        <p>Ratings update your reputation score automatically</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload rules card -->
+            <div class="sidebar-card">
+                <h3 style="font-size:15px;font-weight:800;margin:0 0 14px;">Upload rules</h3>
+                <div class="upload-rules-list">
+                    <div class="upload-rule-item">
+                        <i class="bi bi-check-circle-fill" style="color:#22c55e"></i>
+                        <span>PDF format only</span>
+                    </div>
+                    <div class="upload-rule-item">
+                        <i class="bi bi-check-circle-fill" style="color:#22c55e"></i>
+                        <span>Maximum file size: 10MB</span>
+                    </div>
+                    <div class="upload-rule-item">
+                        <i class="bi bi-check-circle-fill" style="color:#22c55e"></i>
+                        <span>Must be your original work</span>
+                    </div>
+                    <div class="upload-rule-item">
+                        <i class="bi bi-x-circle-fill" style="color:#ef4444"></i>
+                        <span>No plagiarised content</span>
+                    </div>
+                    <div class="upload-rule-item">
+                        <i class="bi bi-x-circle-fill" style="color:#ef4444"></i>
+                        <span>No copyrighted textbook scans</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const fileSelected = document.getElementById('fileSelected');
+const fileName = document.getElementById('fileName');
+
+dropZone.addEventListener('click', () => fileInput.click());
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) showFile(file);
+});
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) showFile(fileInput.files[0]);
+});
+
+function showFile(file) {
+    fileName.textContent = file.name;
+    dropZone.style.display = 'none';
+    fileSelected.style.display = 'flex';
+    // Transfer to input if dropped
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    fileInput.files = dt.files;
+}
+
+function removeFile() {
+    fileInput.value = '';
+    dropZone.style.display = 'flex';
+    fileSelected.style.display = 'none';
+}
+</script>
+
+{% endblock %}
