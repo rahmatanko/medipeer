@@ -23,7 +23,7 @@ def dashboard(request):
 def marketplace(request):
 
     all_notes = Note.objects.all().order_by("-upload_date")
-    return render(request, "marketplace/list.html"), {"notes": all_notes}
+    return render(request, "marketplace/list.html", {"notes": all_notes})
 
 def note_detail(request, note_id):
     note = get_object_or_404(Note, id=note_id)
@@ -125,6 +125,12 @@ def group_create(request):
             messages.error(request, "Error: Failed to create group.")
         return redirect("groups")
     return render(request, "groups/group_create.html")
+
+def join_group(request, group_id):
+    group = get_object_or_404(Study_group, id=group_id)
+    group.members.add(request.user.student)
+    messages.success(request, "You have joined the group successfully!")
+    return redirect("groups")
 
 def search_results(request):
     return render(request, "search/results.html")

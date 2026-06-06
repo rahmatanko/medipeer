@@ -15,6 +15,7 @@ urlpatterns = [
     path("gigs/create/", views.gig_create, name="gig_create"),
 
     path("groups/", views.groups, name="groups"),
+    path("groups/join/<int:group_id>/", views.join_group, name="join_group"),
     path("groups/detail/", views.group_detail, name="group_detail"),
     path("groups/create/", views.group_create, name="group_create"),
 
