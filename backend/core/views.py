@@ -140,41 +140,87 @@ def note_detail(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     return render(request, "marketplace/detail.html", {"note": note})
 
+@login_required(login_url='login')
 def note_upload(request):
-
+    """Upload a note with file storage and PostgreSQL integration"""
+    
     if request.method == "GET":
         return render(request, "marketplace/note_upload.html")
+    
     elif request.method == "POST":
-        title = request.POST.get("note_title")
-        description = request.POST.get("note_description")
-        price = request.POST.get("note_price", 0.00)
+        # Extract form data
+        title = request.POST.get("note_title", "").strip()
+        description = request.POST.get("note_description", "").strip()
+        price = request.POST.get("note_price", "0.00")
         file = request.FILES.get("file_path")
-        course_code = request.POST.get("course_code")
+        course_code = request.POST.get("course_code", "").strip()
 
+        # Validation: Title
+        if not title:
+            messages.error(request, "Error: Note title is required.")
+            return redirect("note_upload")
+
+        # Validation: Course code
+        if not course_code:
+            messages.error(request, "Error: Course code is required.")
+            return redirect("note_upload")
+
+        # Validation: File
+        if not file:
+            messages.error(request, "Error: You must upload a file.")
+            return redirect("note_upload")
+
+        # Validate file type (PDF only)
+        if not file.name.lower().endswith('.pdf'):
+            messages.error(request, "Error: Only PDF files are allowed.")
+            return redirect("note_upload")
+
+        # Validate file size (max 10MB)
+        if file.size > 10 * 1024 * 1024:  # 10MB in bytes
+            messages.error(request, "Error: File size exceeds 10MB limit.")
+            return redirect("note_upload")
+
+        # Validate price
+        try:
+            price = float(price)
+            if price < 0:
+                messages.error(request, "Error: Price cannot be negative.")
+                return redirect("note_upload")
+        except ValueError:
+            messages.error(request, "Error: Invalid price format.")
+            return redirect("note_upload")
+
+        # Get student profile
         try:
             student_profile = request.user.student
-        except:
+        except Student.DoesNotExist:
             messages.error(request, "Error: User does not have an associated student profile.")
-        
             return redirect("note_upload")
         
+        # Get or verify course exists
         try:
             course = Course.objects.get(course_code=course_code)
         except Course.DoesNotExist:
             messages.error(request, "Error: Course with the provided code does not exist.")
             return redirect("note_upload")
         
-        Note.objects.create(
-            course=course,
-            author=student_profile,
-            note_title=title,
-            note_description=description,
-            note_price=price,
-            file_path=file
-        )
-
-        messages.success(request, "Note uploaded successfully!")
-        return redirect("marketplace")
+        # Create note with file upload - Django ORM handles PostgreSQL storage
+        try:
+            note = Note.objects.create(
+                course=course,
+                author=student_profile,
+                note_title=title,
+                note_description=description,
+                note_price=price,
+                file_path=file  # Django FileField handles file storage and path in DB
+            )
+            
+            messages.success(request, f"Note '{title}' uploaded successfully! It's now live in the marketplace.")
+            return redirect("marketplace")
+            
+        except Exception as e:
+            messages.error(request, f"Error uploading note: {str(e)}")
+            return redirect("note_upload")
          
 def gigs(request):
 
