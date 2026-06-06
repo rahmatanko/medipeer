@@ -242,9 +242,8 @@ def gig_create(request):
 
         try:
             student_profile = request.user.student
-        except:
+        except Student.DoesNotExist:
             messages.error(request, "Error: User does not have an associated student profile.")
-        
             return redirect("gig_create")
         
         try:
