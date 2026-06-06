@@ -1,14 +1,123 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer 
-from .models import Course, Note, Student, Gig, Study_group
+from .forms import UserRegistrationForm, UserLoginForm, StudentProfileForm
+from .models import Course, Note, Student, Gig, Study_group, enrolls_in, joins
 
-@api_view(["POST"])
+# ==================== AUTHENTICATION VIEWS ====================
+
+@require_http_methods(["GET", "POST"])
+def register(request):
+    """User registration view with database linkage"""
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Registration successful! You can now log in.')
+            return redirect('login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'auth/register.html', {'form': form})
+
+
+@require_http_methods(["GET", "POST"])
+def user_login(request):
+    """User login view with session management"""
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email'].lower()
+            password = form.cleaned_data['password']
+            
+            # Authenticate using email
+            try:
+                user = authenticate(request, username=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, f'Welcome back, {user.first_name}!')
+                    return redirect('dashboard')
+            except:
+                pass
+            
+            messages.error(request, 'Invalid email or password.')
+    else:
+        form = UserLoginForm()
+    
+    return render(request, 'auth/login.html', {'form': form})
+
+
+@login_required(login_url='login')
+def user_logout(request):
+    """User logout view"""
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('login')
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    """Edit student profile"""
+    try:
+        student = request.user.student
+    except Student.DoesNotExist:
+        messages.error(request, 'Student profile not found.')
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = StudentProfileForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = StudentProfileForm(instance=student)
+    
+    return render(request, 'profile_edit.html', {'form': form, 'student': student})
+
+
+@login_required(login_url='login')
+def profile_view(request):
+    """Render the current authenticated student's profile."""
+    try:
+        student = request.user.student
+    except Student.DoesNotExist:
+        messages.error(request, 'Student profile not found.')
+        return redirect('dashboard')
+
+    enrolled_courses = enrolls_in.objects.filter(student=student).select_related('course')
+    notes_count = Note.objects.filter(author=student).count()
+    gigs_count = Gig.objects.filter(student=student).count()
+    groups_joined = joins.objects.filter(student=student).count()
+
+    return render(request, 'profile.html', {
+        'student': student,
+        'enrolled_courses': enrolled_courses,
+        'notes_count': notes_count,
+        'gigs_count': gigs_count,
+        'groups_joined': groups_joined,
+    })
+
+
+# ==================== API AUTHENTICATION VIEWS ====================
+
 @permission_classes([AllowAny])
 def register_student(request):
     serializer = RegisterSerializer(data=request.data)
@@ -23,7 +132,7 @@ def dashboard(request):
 def marketplace(request):
 
     all_notes = Note.objects.all().order_by("-upload_date")
-    return render(request, "marketplace/list.html"), {"notes": all_notes}
+    return render(request, "marketplace/list.html", {"notes": all_notes})
 
 def note_detail(request, note_id):
     note = get_object_or_404(Note, id=note_id)

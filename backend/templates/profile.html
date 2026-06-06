@@ -9,11 +9,14 @@
             
             <!-- User Identity Card -->
             <div class="prof-card identity-card">
-                <div class="prof-avatar">RR</div>
-                <h2>Rayan Radwan</h2>
-                <p class="prof-major">Computer Engineering · Year 3</p>
-                <p class="prof-email"><i class="bi bi-envelope"></i> rayan@std.medipol.edu.tr</p>
-                <a href="#" class="edit-prof-btn"><i class="bi bi-pencil"></i> Edit profile</a>
+                <div class="prof-avatar">{{ user.first_name|default:user.username|slice:":1"|upper }}</div>
+                <h2>{{ student.student_name }}</h2>
+                <p class="prof-major">{{ student.student_department }} · Class of {{ student.graduation_year|default:"TBA" }}</p>
+                <p class="prof-email"><i class="bi bi-envelope"></i> {{ student.student_email }}</p>
+                <div class="profile-actions">
+                    <a href="{% url 'edit_profile' %}" class="primary-button edit-prof-btn"><i class="bi bi-pencil"></i> Edit profile</a>
+                    <a href="{% url 'logout' %}" class="secondary-button signout-btn"><i class="bi bi-box-arrow-right"></i> Sign out</a>
+                </div>
             </div>
 
             <!--  Reputation Score Card -->
@@ -22,10 +25,10 @@
                     <i class="bi bi-award"></i> Reputation score
                 </div>
                 <div class="rep-score-hero">
-                    <span class="rep-big-num">85</span>
+                    <span class="rep-big-num">{{ student.reputation_score }}</span>
                     <div class="rep-sub">
-                        <span>out of 100</span>
-                        <span class="rep-pill">+3 this week</span>
+                        <span>out of 5</span>
+                        <span class="rep-pill">Member since {{ student.created_at|date:'Y' }}</span>
                     </div>
                 </div>
 
@@ -71,38 +74,20 @@
                     <i class="bi bi-book"></i> Enrolled courses
                 </div>
                 <div class="courses-list">
-                    <div class="course-item">
-                        <div class="course-dot" style="background: #A082D7;"></div>
-                        <div class="course-info">
-                            <strong>Databases</strong>
-                            <span>COE 321</span>
-                        </div>
-                        <div class="course-grade">A</div>
-                    </div>
-                    <div class="course-item">
-                        <div class="course-dot" style="background: #9bd3ab;"></div>
-                        <div class="course-info">
-                            <strong>Algorithms</strong>
-                            <span>COE 223</span>
-                        </div>
-                        <div class="course-grade">B+</div>
-                    </div>
-                    <div class="course-item">
-                        <div class="course-dot" style="background: #8DA8DB;"></div>
-                        <div class="course-info">
-                            <strong>Microprocessors</strong>
-                            <span>COE 306</span>
-                        </div>
-                        <div class="course-grade">A-</div>
-                    </div>
-                    <div class="course-item">
-                        <div class="course-dot" style="background: #D77F5C;"></div>
-                        <div class="course-info">
-                            <strong>Intro to Programming</strong>
-                            <span>COE 177</span>
-                        </div>
-                        <div class="course-grade">A</div>
-                    </div>
+                    {% if enrolled_courses %}
+                        {% for enrollment in enrolled_courses %}
+                            <div class="course-item">
+                                <div class="course-dot" style="background: #A082D7;"></div>
+                                <div class="course-info">
+                                    <strong>{{ enrollment.course.course_name }}</strong>
+                                    <span>{{ enrollment.course.course_code }}</span>
+                                </div>
+                                <div class="course-grade">Year {{ enrollment.enrollment_year }}</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">You are not enrolled in any courses yet.</p>
+                    {% endif %}
                 </div>
             </div>
 
@@ -113,15 +98,15 @@
             
             <div class="prof-stats-row">
                 <div class="prof-stat-box box-purple">
-                    <span class="stat-num">12</span>
+                    <span class="stat-num">{{ notes_count }}</span>
                     <span class="stat-lbl">Notes uploaded</span>
                 </div>
                 <div class="prof-stat-box box-yellow">
-                    <span class="stat-num">4</span>
+                    <span class="stat-num">{{ groups_joined }}</span>
                     <span class="stat-lbl">Groups joined</span>
                 </div>
                 <div class="prof-stat-box box-green">
-                    <span class="stat-num">7</span>
+                    <span class="stat-num">{{ gigs_count }}</span>
                     <span class="stat-lbl">Gigs completed</span>
                 </div>
             </div>
