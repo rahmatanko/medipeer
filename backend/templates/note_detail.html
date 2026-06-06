@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="note-page">
+    
+    <div class="note-hero">
+        <a href="/marketplace/" class="back-link"><i class="bi bi-arrow-left"></i> Back to Marketplace</a>
+        <div class="hero-content">
+            <div class="hero-titles">
+                <span class="course-tag">COE 315 · Operating Systems</span>
+                <h1>Operating Systems Final Notes</h1>
+            </div>
+            <div class="hero-rating">
+                <div class="rating-badge">
+                    <i class="bi bi-star-fill"></i> 4.9
+                </div>
+                <span>(24 reviews)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="note-grid">
+        
+        <div class="note-left-col">
+            
+            <div class="prof-card preview-card">
+                <div class="card-header-main">
+                    <h2>Document Preview</h2>
+                    <p>Watermarked preview of the first 3 pages.</p>
+                </div>
+                
+                <div class="pdf-preview-box">
+                    <div class="pdf-placeholder-content">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        <h3>Preview not loaded</h3>
+                        <p>In the final version, the PDF viewer will render here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prof-card">
+                <div class="card-header-main">
+                    <h2>About these notes</h2>
+                </div>
+                <div class="note-description">
+                    <p>These are my complete, handwritten and digitized notes for the Operating Systems final exam. They cover everything from Week 8 to Week 14, including:</p>
+                    <ul>
+                        <li>Process Synchronization & Mutexes</li>
+                        <li>Deadlock Prevention & Avoidance</li>
+                        <li>Memory Management & Paging</li>
+                        <li>Virtual Memory</li>
+                    </ul>
+                    <p>I also included 3 practice problems with step-by-step solutions at the very end. Hope this helps you ace the final!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-right-col">
+            
+            <div class="prof-card action-card">
+                <div class="price-header">
+                    <span class="price-label">Price</span>
+                    <span class="price-amount">20.00 ₺</span>
+                </div>
+                
+                <div class="file-meta-list">
+                    <div class="file-meta-item">
+                        <i class="bi bi-file-text"></i>
+                        <span>14 Pages</span>
+                    </div>
+                    <div class="file-meta-item">
+                        <i class="bi bi-hdd"></i>
+                        <span>4.2 MB</span>
+                    </div>
+                    <div class="file-meta-item">
+                        <i class="bi bi-filetype-pdf"></i>
+                        <span>PDF Document</span>
+                    </div>
+                </div>
+
+                <button class="buy-btn"><i class="bi bi-cart3"></i> Purchase Notes</button>
+                <p class="secure-text"><i class="bi bi-shield-check"></i> Secure Medipeer transaction</p>
+            </div>
+
+            <div class="prof-card author-card">
+                <div class="card-header-main" style="margin-bottom: 16px;">
+                    <h2>Uploaded by</h2>
+                </div>
+                
+                <div class="author-profile-row">
+                    <div class="author-avatar bg-purple">RR</div>
+                    <div class="author-info">
+                        <strong>Rayan Radwan</strong>
+                        <span>Computer Engineering</span>
+                    </div>
+                </div>
+                
+                <div class="author-stats">
+                    <div class="a-stat">
+                        <strong>85</strong>
+                        <span>Reputation</span>
+                    </div>
+                    <div class="a-stat">
+                        <strong>12</strong>
+                        <span>Uploads</span>
+                    </div>
+                </div>
+                
+                <a href="#" class="view-profile-btn">View Profile</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

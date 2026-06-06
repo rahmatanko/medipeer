@@ -1,0 +1,311 @@
+
+
+.note-page {
+    padding: 24px;
+    background: #f4f5f8;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 1. Hero Section */
+.note-hero {
+    background: #231942; /* Deep purple */
+    border-radius: 24px;
+    padding: 32px 48px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.back-link {
+    color: #a8a3c2;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: white;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.hero-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.course-tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: #dbeafe; /* Light blue */
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    width: fit-content;
+}
+
+.hero-titles h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+}
+
+.hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #a8a3c2;
+    font-size: 14px;
+}
+
+.rating-badge {
+    background: #fbbf24;
+    color: #92400e;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 2. Grid Layout */
+.note-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr; /* Left column is much wider for the PDF */
+    gap: 24px;
+}
+
+.note-left-col, .note-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Ensure you have .prof-card defined globally! 
+   (If not, paste the .prof-card CSS from the contact page here) */
+
+/* PDF Preview Box */
+.preview-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-preview-box {
+    background: #f9fafb;
+    border: 2px dashed #e5e7eb;
+    border-radius: 16px;
+    height: 500px; /* Fixed height for the viewer placeholder */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.pdf-placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #9ca3af;
+}
+
+.pdf-placeholder-content i {
+    font-size: 48px;
+    color: #d1d5db;
+    margin-bottom: 12px;
+}
+
+.pdf-placeholder-content h3 {
+    color: #4b5563;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+/* Note Description */
+.note-description {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.note-description ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.note-description li {
+    margin-bottom: 6px;
+}
+
+/* Action Sidebar (Right Column) */
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 20px;
+}
+
+.price-label {
+    font-size: 16px;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.price-amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111;
+}
+
+.file-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.file-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.file-meta-item i {
+    font-size: 18px;
+    color: #8c7ff9; /* Purple accent */
+}
+
+.buy-btn {
+    width: 100%;
+    background: #251c4a;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.buy-btn:hover {
+    background: #3d2d7a;
+}
+
+.secure-text {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    margin: 12px 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* Author Sidebar */
+.author-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-info strong {
+    font-size: 15px;
+    color: #111;
+}
+
+.author-info span {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+
+.author-stats {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid #f3f4f6;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 20px;
+}
+
+.a-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.a-stat strong {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111;
+}
+
+.a-stat span {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.view-profile-btn {
+    display: block;
+    text-align: center;
+    color: #111;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.view-profile-btn:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+/* Color Helper */
+.bg-purple { background: #f5f3ff; color: #7c3aed; }

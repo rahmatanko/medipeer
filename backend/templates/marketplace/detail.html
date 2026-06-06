@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="groups-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>{{ note.note_title }}</h1>
+            <p>{{ note.course.course_code }} · {{ note.course.course_name }}</p>
+        </div>
+        <div class="hero-right">
+            <a href="{% url 'marketplace' %}" class="post-gig-btn">← Back to Marketplace</a>
+        </div>
+    </div>
+
+    <div class="group-create-grid">
+
+        <!-- LEFT: Note Info -->
+        <div class="groups-available-card">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="gig-alert gig-alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Author row -->
+            <div class="note-detail-author">
+                <div class="lb-avatar">{{ note.author.student_name|slice:":1"|upper }}</div>
+                <div>
+                    <div style="font-weight:700;font-size:15px;">{{ note.author.student_name }}</div>
+                    <div style="font-size:12px;color:#9ca3af;">
+                        Uploaded {{ note.upload_date|date:"M d, Y" }} ·
+                        ⭐ {{ note.author.reputation_score }} reputation
+                    </div>
+                </div>
+                <div class="note-detail-price">{{ note.note_price }} ₺</div>
+            </div>
+
+            <!-- Description -->
+            <div class="note-detail-section">
+                <div class="note-detail-label">About this note</div>
+                <p class="note-detail-desc">
+                    {{ note.note_description|default:"No description provided." }}
+                </p>
+            </div>
+
+            <!-- Course info -->
+            <div class="note-detail-section">
+                <div class="note-detail-label">Course details</div>
+                <div class="note-detail-meta-grid">
+                    <div class="note-meta-item">
+                        <i class="bi bi-book"></i>
+                        <span>{{ note.course.course_name }}</span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-tag"></i>
+                        <span>{{ note.course.course_code }}</span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-building"></i>
+                        <span>{{ note.course.course_department }}</span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-calendar"></i>
+                        <span>{{ note.course.semester }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buy form -->
+            <div class="note-buy-box">
+                <div class="note-buy-price">
+                    <span>Total</span>
+                    <strong>{{ note.note_price }} ₺</strong>
+                </div>
+                <form method="POST" action="#">
+                    {% csrf_token %}
+                    <input type="hidden" name="note_id" value="{{ note.id }}">
+                    <select name="payment_method" class="gc-input" style="margin-bottom:14px;">
+                        <option value="wallet">Wallet balance</option>
+                        <option value="card">Credit card</option>
+                        <option value="campus_card">Campus card</option>
+                    </select>
+                    <button type="submit" class="gc-submit-btn">
+                        <i class="bi bi-bag-check"></i> Buy Note
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Sidebar -->
+        <div class="gig-create-right">
+
+            <!-- File preview placeholder -->
+            <div class="sidebar-card">
+                <h3 style="font-size:15px;font-weight:800;margin:0 0 16px;">File Preview</h3>
+                <div class="note-preview-placeholder">
+                    <i class="bi bi-file-earmark-pdf" style="font-size:48px;color:#ef4444;"></i>
+                    <div style="font-size:13px;font-weight:700;margin-top:10px;">PDF Document</div>
+                    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">
+                        Purchase to access the full file
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-card">
+                <h3 style="font-size:15px;font-weight:800;margin:0 0 16px;">Tags</h3>
+                <div class="note-tags-wrap">
+                    {% for tag in note.note_tag_set.all %}
+                        <span class="note-tag">{{ tag.tag_name }}</span>
+                    {% empty %}
+                        <span style="font-size:13px;color:#9ca3af;">No tags added.</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Safety note -->
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text" style="font-size:14px;margin:0 0 12px;">Content protection</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-shield-check"></i></span>
+                        <p>This note is watermarked with your student ID on purchase</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-fingerprint"></i></span>
+                        <p>Plagiarism is checked automatically on every upload</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-star"></i></span>
+                        <p>Rate the note after reading to help the author's reputation</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

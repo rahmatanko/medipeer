@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="groups-page">
+
+    <div class="groups-hero">
+        <a href="{% url 'groups' %}" class="groups-create-btn">← Back to Groups</a>
+        <div class="groups-hero-title"><i class="bi bi-people"></i> Group Detail</div>
+        <div class="groups-hero-sub">View group info, members, and upcoming sessions.</div>
+    </div>
+
+    <div class="group-detail-grid">
+
+        <!-- LEFT: Main Info -->
+        <div class="group-detail-left">
+
+            <!-- Group header card -->
+            <div class="groups-available-card">
+                <div class="group-detail-header">
+                    <div class="group-detail-avatar">G</div>
+                    <div>
+                        <h2 class="group-detail-title">Databases Final Prep</h2>
+                        <div class="group-detail-meta">
+                            <span><i class="bi bi-book"></i>COE3249650 </span>
+                            <span><i class="bi bi-person"></i> Created by Jumana</span>
+                            <span><i class="bi bi-calendar"></i> Recently</span>
+                        </div>
+                    </div>
+                    <a href="#" class="group-join-btn ms-auto">Join Group</a>
+                </div>
+
+                {% if group.description %}
+                <div class="note-detail-section" style="margin-top:24px;">
+                    <div class="note-detail-label">About this group</div>
+                    <p class="note-detail-desc">{{ group.description }}</p>
+                </div>
+                {% endif %}
+
+                <div class="note-detail-meta-grid" style="margin-top:20px;">
+                    <div class="note-meta-item">
+                        <i class="bi bi-people"></i>
+                        <span>Max {{ group.max_members }} members is 10</span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-book"></i>
+                        <span>COE3249650 </span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-building"></i>
+                        <span>{{ group.course.course_department }}COE</span>
+                    </div>
+                    <div class="note-meta-item">
+                        <i class="bi bi-calendar"></i>
+                        <span>{{ group.creation_date|date:"M d, Y" }}MAY</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members list -->
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Members</h2>
+                    <span class="groups-showing">{{ members|length }} joined</span>
+                </div>
+                <div class="groups-list">
+                    {% for membership in members %}
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#ede9fe;color:#7c3aed;">
+                            {{ membership.student.student_name|slice:":1"|upper }}
+                        </div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">{{ membership.student.student_name }}</div>
+                            <div class="group-item-meta">
+                                {{ membership.role|capfirst }} ·
+                                Joined {{ membership.join_date|date:"M d, Y" }}
+                            </div>
+                        </div>
+                        <span class="group-member-rep">
+                            ⭐ {{ membership.student.reputation_score }}
+                        </span>
+                    </div>
+                    {% empty %}
+                    <div style="text-align:center;padding:32px;color:#9ca3af;font-size:14px;">
+                        No members yet — be the first to join!
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Sidebar -->
+        <div class="gig-create-right">
+
+            <div class="sessions-card">
+                <h3>Upcoming Sessions</h3>
+                <div style="text-align:center;padding:24px;color:#9ca3af;font-size:13px;">
+                    No sessions scheduled yet.
+                </div>
+            </div>
+
+            <div class="sidebar-card card-purple-tint">
+                <h3 class="purple-text">Group rules</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-check-circle"></i></span>
+                        <p>Be respectful and supportive of all members</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-check-circle"></i></span>
+                        <p>Show up to sessions you commit to</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-check-circle"></i></span>
+                        <p>Share resources and help each other grow</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num"><i class="bi bi-x-circle"></i></span>
+                        <p>No sharing of copyrighted material</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card card-blue-tint">
+                <h3 class="blue-text">Reputation impact</h3>
+                <div class="instruction-list">
+                    <div class="inst-item">
+                        <span class="inst-num">📈</span>
+                        <p>Leading a group contributes 25% to your reputation score</p>
+                    </div>
+                    <div class="inst-item">
+                        <span class="inst-num">⭐</span>
+                        <p>Active participation is tracked and rewarded</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

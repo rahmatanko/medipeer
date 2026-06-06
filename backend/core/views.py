@@ -187,9 +187,11 @@ def gig_create(request):
     if request.method == "GET":
         return render(request, "gigs/gig_create.html")
     elif request.method == "POST":
-        title = request.POST.get("gig_title")
+        title = request.POST.get("gig_name")
+        price = request.POST.get("gig_price", 0.00)
+        services_type = request.POST.get("services_type", "tutoring")
+
         description = request.POST.get("gig_description")
-        budget = request.POST.get("budget", 0.00)
         course_code = request.POST.get("course_code")
 
         try:
@@ -204,14 +206,14 @@ def gig_create(request):
         except Course.DoesNotExist:
             messages.error(request, "Error: Course with the provided code does not exist.")
             return redirect("gig_create")
-        
         Gig.objects.create(
-            course=course,
+             course=course,
             student=student_profile,
-            gig_title=title,
+            gig_name=title,
             gig_description=description,
-            budget=budget
-        )
+            gig_price=price,
+            services_type=services_type,
+            )
 
         messages.success(request, "Gig created successfully!")
         return redirect("gigs")
@@ -286,7 +288,17 @@ def contact(request):
     return render(request, "contact.html")
 
 def admin_analytics(request):
-    return render(request, "admin_analytics.html")
+    from .models import Student, Note, Gig, Study_group
+    return render(request, "admin_analytics.html", {
+        'total_students': Student.objects.count(),
+        'total_notes': Note.objects.count(),
+        'total_gigs': Gig.objects.count(),
+        'total_groups': Study_group.objects.count(),
+        'recent_students': Student.objects.order_by('-created_at')[:5],
+        'recent_notes': Note.objects.order_by('-upload_date').select_related('course', 'author')[:5],
+        'recent_gigs': Gig.objects.order_by('-creation_date').select_related('course')[:5],
+        'top_students': Student.objects.order_by('-reputation_score')[:5],
+    })
 
 def profile(request):
     return render(request, "profile.html")

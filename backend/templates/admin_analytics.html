@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="groups-page">
+
+    <div class="gigs-hero">
+        <div class="hero-left">
+            <h1>Admin Analytics</h1>
+            <p>Platform overview — students, notes, gigs, and groups at a glance.</p>
+        </div>
+        <div class="hero-right">
+            <div class="hero-stat-box">
+                <span class="stat-num">{{ total_students|default:"0" }}</span>
+                <span class="stat-label">Students</span>
+            </div>
+            <div class="hero-stat-box">
+                <span class="stat-num">{{ total_notes|default:"0" }}</span>
+                <span class="stat-label">Notes</span>
+            </div>
+            <div class="hero-stat-box">
+                <span class="stat-num">{{ total_gigs|default:"0" }}</span>
+                <span class="stat-label">Gigs</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-grid">
+
+        <!-- Row 1: 3 stat cards -->
+        <div class="analytics-stats-row">
+            <div class="analytics-stat-card" style="border-top:3px solid #a78bfa;">
+                <div class="analytics-stat-num" style="color:#7c3aed;">{{ total_students|default:"0" }}</div>
+                <div class="analytics-stat-label">Registered Students</div>
+                <div class="groups-stat-bar" style="margin-top:16px;">
+                    <div class="groups-stat-bar-fill" style="width:70%;background:#a78bfa;"></div>
+                </div>
+            </div>
+            <div class="analytics-stat-card" style="border-top:3px solid #8DA8DB;">
+                <div class="analytics-stat-num" style="color:#1d4ed8;">{{ total_notes|default:"0" }}</div>
+                <div class="analytics-stat-label">Notes Uploaded</div>
+                <div class="groups-stat-bar" style="margin-top:16px;">
+                    <div class="groups-stat-bar-fill" style="width:55%;background:#8DA8DB;"></div>
+                </div>
+            </div>
+            <div class="analytics-stat-card" style="border-top:3px solid #D77F5C;">
+                <div class="analytics-stat-num" style="color:#b45309;">{{ total_gigs|default:"0" }}</div>
+                <div class="analytics-stat-label">Active Gigs</div>
+                <div class="groups-stat-bar" style="margin-top:16px;">
+                    <div class="groups-stat-bar-fill" style="width:40%;background:#D77F5C;"></div>
+                </div>
+            </div>
+            <div class="analytics-stat-card" style="border-top:3px solid #22c55e;">
+                <div class="analytics-stat-num" style="color:#166534;">{{ total_groups|default:"0" }}</div>
+                <div class="analytics-stat-label">Study Groups</div>
+                <div class="groups-stat-bar" style="margin-top:16px;">
+                    <div class="groups-stat-bar-fill" style="width:60%;background:#22c55e;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: two columns -->
+        <div class="analytics-main-grid">
+
+            <!-- Recent students -->
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Recent Students</h2>
+                    <span class="groups-showing">Latest registrations</span>
+                </div>
+                <div class="groups-list">
+                    {% for student in recent_students %}
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#ede9fe;color:#7c3aed;">
+                            {{ student.student_name|slice:":1"|upper }}
+                        </div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">{{ student.student_name }}</div>
+                            <div class="group-item-meta">
+                                {{ student.student_email }} · {{ student.student_department }}
+                            </div>
+                        </div>
+                        <span class="group-member-rep">⭐ {{ student.reputation_score }}</span>
+                    </div>
+                    {% empty %}
+                    <div style="text-align:center;padding:32px;color:#9ca3af;font-size:14px;">
+                        No students yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Recent notes -->
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Recent Notes</h2>
+                    <span class="groups-showing">Latest uploads</span>
+                </div>
+                <div class="groups-list">
+                    {% for note in recent_notes %}
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#dce7fa;color:#1d4ed8;">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">{{ note.note_title }}</div>
+                            <div class="group-item-meta">
+                                {{ note.course.course_code }} · by {{ note.author.student_name }} · {{ note.note_price }} ₺
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div style="text-align:center;padding:32px;color:#9ca3af;font-size:14px;">
+                        No notes uploaded yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Recent gigs -->
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Recent Gigs</h2>
+                    <span class="groups-showing">Latest postings</span>
+                </div>
+                <div class="groups-list">
+                    {% for gig in recent_gigs %}
+                    <div class="group-item">
+                        <div class="group-item-avatar" style="background:#fef3c7;color:#b45309;">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">{{ gig.gig_name }}</div>
+                            <div class="group-item-meta">
+                                {{ gig.course.course_code }} · {{ gig.gig_status|capfirst }} · {{ gig.gig_price }} ₺
+                            </div>
+                        </div>
+                        <span class="tag tag-{{ gig.gig_status }}">{{ gig.gig_status|capfirst }}</span>
+                    </div>
+                    {% empty %}
+                    <div style="text-align:center;padding:32px;color:#9ca3af;font-size:14px;">
+                        No gigs posted yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Top reputation -->
+            <div class="groups-available-card">
+                <div class="groups-available-header">
+                    <h2>Top Reputation</h2>
+                    <span class="groups-showing">Highest scored students</span>
+                </div>
+                <div class="groups-list">
+                    {% for student in top_students %}
+                    <div class="group-item">
+                        <div class="lb-rank-badge rank-{{ forloop.counter }}">{{ forloop.counter }}</div>
+                        <div class="group-item-avatar" style="background:#ede9fe;color:#7c3aed;">
+                            {{ student.student_name|slice:":1"|upper }}
+                        </div>
+                        <div class="group-item-info">
+                            <div class="group-item-name">{{ student.student_name }}</div>
+                            <div class="group-item-meta">{{ student.student_department }}</div>
+                        </div>
+                        <span class="group-member-rep">⭐ {{ student.reputation_score }}</span>
+                    </div>
+                    {% empty %}
+                    <div style="text-align:center;padding:32px;color:#9ca3af;font-size:14px;">
+                        No data yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
