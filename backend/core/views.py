@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.shortcuts import render
@@ -128,8 +130,15 @@ def group_create(request):
 
 def join_group(request, group_id):
     group = get_object_or_404(Study_group, id=group_id)
-    group.members.add(request.user.student)
-    messages.success(request, "You have joined the group successfully!")
+
+    if request.user.student in group.members.all():
+        messages.warning(request, "You are already a member of this group.")
+        return redirect("groups")
+    try:
+        group.members.add(request.user.student)
+        messages.success(request, "You have joined the group successfully!")
+    except:
+        messages.error(request, "Error: Failed to join the group.")
     return redirect("groups")
 
 def search_results(request):
