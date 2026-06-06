@@ -221,6 +221,9 @@ def note_upload(request):
         except Exception as e:
             messages.error(request, f"Error uploading note: {str(e)}")
             return redirect("note_upload")
+    
+    # Default fallback
+    return redirect("marketplace")
          
 def gigs(request):
 
