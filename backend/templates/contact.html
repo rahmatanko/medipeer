@@ -1,58 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-/* =========================================
-   CONTACT PAGE STYLES (Embedded)
-   ========================================= */
-.contact-page { padding: 24px; background: #f4f5f8; min-height: 100vh; max-width: 1200px; margin: 0 auto; }
-.contact-hero { background: #231942; border-radius: 24px; padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.contact-hero .hero-left h1 { font-size: 36px; font-weight: 800; color: white; margin: 0 0 12px 0; }
-.contact-hero .hero-left p { color: #a8a3c2; font-size: 15px; margin: 0; max-width: 500px; line-height: 1.5; }
-.contact-hero .hero-right { display: flex; gap: 16px; }
-.contact-hero .hero-stat-box { background: rgba(255, 255, 255, 0.08); padding: 16px 28px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.contact-hero .stat-num { color: white; font-size: 28px; font-weight: 800; line-height: 1.1; }
-.contact-hero .stat-label { color: #a8a3c2; font-size: 12px; margin-top: 6px; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; }
-.contact-left-col, .contact-right-col { display: flex; flex-direction: column; gap: 24px; }
-
-/* The critical missing base card style */
-.prof-card { background: white; border-radius: 24px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.04); }
-
-.card-header-main h2 { font-size: 20px; font-weight: 800; color: #111; margin: 0 0 6px 0; }
-.card-header-main p { font-size: 14px; color: #6b7280; margin: 0 0 24px 0; }
-.contact-form { display: flex; flex-direction: column; gap: 20px; }
-.form-row { display: flex; gap: 16px; }
-.form-group { display: flex; flex-direction: column; flex: 1; }
-.form-group label { font-size: 13px; color: #4b5563; font-weight: 600; margin-bottom: 8px; }
-.form-input, .form-textarea { width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 14px; color: #111; background: white; outline: none; font-family: inherit; transition: border-color 0.2s; box-sizing: border-box; }
-.form-input:focus, .form-textarea:focus { border-color: #8c7ff9; }
-.form-textarea { resize: vertical; min-height: 120px; }
-.submit-btn { background: white; color: #111; border: 1px solid #d1d5db; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
-.submit-btn:hover { background: #f9fafb; border-color: #9ca3af; }
-.reach-list { display: flex; flex-direction: column; gap: 16px; }
-.reach-item { display: flex; align-items: center; gap: 16px; padding: 16px; background: #fafafa; border-radius: 16px; }
-.reach-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.reach-text { display: flex; flex-direction: column; }
-.reach-text span { font-size: 12px; color: #6b7280; margin-bottom: 2px; }
-.reach-text strong { font-size: 14px; color: #111; }
-.faq-list { display: flex; flex-direction: column; }
-.faq-item { padding: 20px 0; border-bottom: 1px solid #f3f4f6; }
-.faq-item:first-child { padding-top: 0; }
-.faq-q { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 8px; }
-.faq-a { font-size: 14px; color: #6b7280; line-height: 1.5; padding-left: 12px; }
-.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.team-member { display: flex; align-items: center; gap: 14px; background: #fafafa; padding: 16px; border-radius: 16px; }
-.team-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
-.team-info { display: flex; flex-direction: column; }
-.team-info strong { font-size: 14px; color: #111; }
-.team-info span { font-size: 12px; color: #6b7280; margin-top: 2px; }
-.bg-purple { background: #f5f3ff; color: #7c3aed; }
-.bg-blue { background: #eff6ff; color: #2563eb; }
-.bg-green { background: #f0fdf4; color: #16a34a; }
-.bg-orange { background: #fff7ed; color: #ea580c; }
-</style>
-
 <div class="contact-page">
     
     <div class="contact-hero">
