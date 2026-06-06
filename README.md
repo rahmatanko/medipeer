@@ -1,4 +1,4 @@
-#MediPeer - Student Academic Marketplace and Collaboration Platform
+MediPeer - Student Academic Marketplace and Collaboration Platform
 
 MediPeer is a web-based platform that enables students to connect, collaborate, and exchange academic services. The platform features a marketplace for buying and selling study notes, a gig marketplace for academic services, and study group management tools.
 
